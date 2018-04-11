@@ -1,0 +1,60 @@
+{
+    "Title": "Hope it works..! - 65 characters",
+    "Schema": "LocalBusiness",
+    "BrandName": "SVS Printer and Bags",
+    "EmailID": "svsprinterscbe@gmail.com",
+    "Telephone": "+91-9944180533",
+    "URL": "http://svsprintersandbags.com/",
+    "Description": "Best Thamboolam bags for Marriage Function, Organization Functions, Religion Festival bags, and other occasion",
+    "Image": "https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a",
+    "OG": {
+        "og:description": "Maximum 65 characters",
+        "og:image": "300 x 200 pixel is advised + 300KB ",
+        "og:locale": "en_GB",
+        "og:locale:alternate": "ta_IN",
+        "og:site_name": "SVS Printers and Bags",
+        "og:title": "Maximum 35 characters",
+        "og:type": "article",
+        "og:url": "Full link to your webpage address"
+    },
+    "Meta": {
+        "keywords": "Keywords,Keyword",
+        "Description": "",
+        "news_keywords": "news_keywords",
+        "robots": "noodp",
+        "generator": "SVS Printers and Bags",
+        "article:author": "",
+        "article:section": "",
+        "article:tag": "",
+        "article:publisher": ""
+    },
+    "FB": {
+        "fb:app_id": "fb:app_id",
+        "fb:page_id": "fb:page_id",
+        "fb:admins": "fb:admins"
+    },
+    "twitter": {
+        "twitter:card": "",
+        "twitter:site": "",
+        "twitter:description": "",
+        "twitter:app:country": "",
+        "twitter:app:name:iphone": "",
+        "twitter:app:id:iphone": "",
+        "twitter:app:url:iphone": "twitter:app:url:iphone",
+        "twitter:app:name:ipad": "",
+        "twitter:app:id:ipad": "",
+        "twitter:app:url:ipad": "",
+        "twitter:app:name:googleplay": "",
+        "twitter:app:id:googleplay": "",
+        "twitter:app:url:googleplay": "",
+        "twitter:creator": "",
+        "twitter:image:src": ""
+    },
+    "Address": {
+        "addressLocality": "Gandhipuram,",
+        "addressRegion": "Coimbatore",
+        "postalCode": "641009",
+        "streetAddress": "431, Vivekanandha road (Balasundaram layout), Ramnagar",
+        "addressCountry": "INDIA"
+    }
+}

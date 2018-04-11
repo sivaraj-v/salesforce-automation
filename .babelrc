@@ -1,0 +1,7 @@
+{
+    "plugins": [
+        ["@babel/plugin-proposal-object-rest-spread", { "loose": true, "useBuiltIns": true }],
+        ["@babel/plugin-proposal-export-default-from"]
+    ],
+    "presets": ["@babel/preset-react", "@babel/preset-env"]
+}

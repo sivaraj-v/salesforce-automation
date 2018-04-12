@@ -13,23 +13,8 @@ class Home extends React.Component {
       SO: {},
       Loading: false
     }
-    // this.SEO_FUNC = this.SEO_FUNC.bind(this);
     this.updateProps = this.updateProps.bind(this);
   }
-
-  // SEO_FUNC(path) {
-  //   // console.log("Entered");
-  //   // console.log(JSON);
-  //   // const items = this.props.items.map((item) => (
-  //   //   <ul key={item.id}>
-  //   //     <li>
-  //   //       <button onClick={() => this.displayAlert(item.email)}>
-  //   //         {item.lastName + ', ' + item.firstName}
-  //   //       </button>
-  //   //     </li>
-  //   //   </ul>
-  //   // ));
-  // }
   componentWillMount() {
     //  console.log(this)
     this.setState({
@@ -41,10 +26,10 @@ class Home extends React.Component {
   //     console.log("Component did mount!");
   // }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("Component will receive props", nextProps);
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("Component will receive props", nextProps);
 
-  }
+  // }
 
   // shouldComponentUpdate(nextProps, nextState) {
   //     console.log("Should Component update", nextProps, nextState);
@@ -91,7 +76,7 @@ class Home extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-8 gradient-1 height100">
-              <Main soUserInput={this.updateProps}/>
+              <Main Loading={this.state.Loading} soUserInput={this.updateProps}/>
               { /* <User username={this.props.user.name}/> */ }
           </div>
           <div className="col-lg-4 gradient-2 height100">

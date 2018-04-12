@@ -5,34 +5,45 @@ export class Main extends React.Component {
     super(props);
     this.state = {
       SO: {},
-      Loading: false
+      Loading: this.props.Loading
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmits = this.handleSubmits.bind(this);
   }
+  componentDidMount() {
+    //console.log(this);
+  }
   handleSubmits(value) {
-    this.setState((prevState, props) => {
-      return {
-        Loading: true
-      }
-    });
-    console.log(this);
-  //this.props.soUserInput(value);
+    // this.setState((prevState, props) => {
+    //   return {
+    //     Loading: true
+    //   }
+    // });
+    this.props.Loading = true;
+    this.props.soUserInput(value);
   }
   handleSubmit(e) {
     e.preventDefault();
     const formData = {};
     formData['alias'] = this.refs['alias'].value;
     formData['projectName'] = this.refs['projectName'].value;
-    this.handleSubmits(formData);
 
+    this.props.Loading = true;
+    this.props.soUserInput(formData);
+    this.setState((prevState, props) => {
+      return {
+        Loading: this.props.Loading
+      }
+    });
+    //this.handleSubmits(formData);
+    console.log(this);
   }
   render() {
 
     return (
       <form className="form-horizontal vertical-center" autocomplete="off"  onSubmit={this.handleSubmit}>
-      {console.log(this.state.Loading)}
-      <fieldset disabled={this.state.Loading == true ? true : false}>
+      {console.log(this)}
+      <fieldset disabled={this.state.Loading == undefined ? true : false}>
         <div className="col-sm-12">
           <h1> Scratch Org</h1>
         </div>

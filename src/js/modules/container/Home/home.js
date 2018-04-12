@@ -10,7 +10,8 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      SO: {}
+      SO: {},
+      Loading: false
     }
     // this.SEO_FUNC = this.SEO_FUNC.bind(this);
     this.updateProps = this.updateProps.bind(this);
@@ -41,7 +42,7 @@ class Home extends React.Component {
   // }
 
   componentWillReceiveProps(nextProps) {
-      console.log("Component will receive props", nextProps);
+    console.log("Component will receive props", nextProps);
 
   }
 
@@ -65,31 +66,40 @@ class Home extends React.Component {
   //     console.log("Component will unmount");
   // }
 
-  updateProps(value){
+  updateProps(value) {
     this.props.setName(value);
+    this.setState({
+      Loading: true
+    })
   }
   render() {
-    // this.state ?
-    //   <div className="container">
-    //      <SEO schema="LocalBusiness" title="Winner" path="https://www.youtube.com/watch?v=xTWXKOitbPY&index=2&list=PLKQ7OlmhPdrBjH7nuBQbvzjmEgc2xlMKM" contentType="product"  description="Works aasfdfa sgdascfv"/>
-    //      <Main changeUsername={() => this.props.setName("Anna")}/>
-    //      <User username={this.props.user.name}/>
-    // </div>
-    //   : <div> Loading ... </div>
-
     return (
+    this.state.Loading ?
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-8 gradient-1 height100">
+          <div className="col-lg-8 gradient-1 height100 greyout">
+              <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
               <Main soUserInput={this.updateProps}/>
-              {/* <User username={this.props.user.name}/> */}
+              { /* <User username={this.props.user.name}/> */ }
           </div>
           <div className="col-lg-4 gradient-2 height100">
             <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty>
           </div>
         </div>
       </div>
-      );
+      :
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-8 gradient-1 height100">
+              <Main soUserInput={this.updateProps}/>
+              { /* <User username={this.props.user.name}/> */ }
+          </div>
+          <div className="col-lg-4 gradient-2 height100">
+            <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 const mapStateToProps = (state) => {

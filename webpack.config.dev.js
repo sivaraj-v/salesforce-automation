@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
   filename: 'css/[name]-[hash].css',
   disable: process.env.NODE_ENV === 'development',
@@ -33,9 +32,6 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-  },
-  performance: {
-    hints: false,
   },
   module: {
     rules: [{

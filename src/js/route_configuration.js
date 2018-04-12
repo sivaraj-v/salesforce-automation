@@ -7,12 +7,10 @@ const route_configuration = [
         path: '/',
         exact: true,
         component: Home,
-        SEO: 'SEO_HOME'
       },
       {
         path: '/home',
         component: Home,
-        SEO: 'SEO_HOME'
       },
       {
         path: '/list',

@@ -31,7 +31,7 @@ class AppRoot extends Component {
               </div>
             </div>
           </nav> */}
-        <main className="mdl-layout__content">
+        <main>
           {renderRoutes(this.props.route.routes)}
         </main>
       </div>

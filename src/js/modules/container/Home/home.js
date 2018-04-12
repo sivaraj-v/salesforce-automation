@@ -13,7 +13,6 @@ class Home extends React.Component {
       SO: {}
     }
     // this.SEO_FUNC = this.SEO_FUNC.bind(this);
-
     this.updateProps = this.updateProps.bind(this);
   }
 
@@ -41,9 +40,10 @@ class Home extends React.Component {
   //     console.log("Component did mount!");
   // }
 
-  // componentWillReceiveProps(nextProps) {
-  //     console.log("Component will receive props", nextProps);
-  // }
+  componentWillReceiveProps(nextProps) {
+      console.log("Component will receive props", nextProps);
+
+  }
 
   // shouldComponentUpdate(nextProps, nextState) {
   //     console.log("Should Component update", nextProps, nextState);
@@ -65,8 +65,8 @@ class Home extends React.Component {
   //     console.log("Component will unmount");
   // }
 
-  updateProps(value) {
-    console.log(value);
+  updateProps(value){
+    this.props.setName(value);
   }
   render() {
     // this.state ?
@@ -78,13 +78,13 @@ class Home extends React.Component {
     //   : <div> Loading ... </div>
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-8 gradient-1 height100">
               <Main soUserInput={this.updateProps}/>
-              <User username={this.props.user.name}/>
+              {/* <User username={this.props.user.name}/> */}
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg-4 gradient-2 height100">
             <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty>
           </div>
         </div>

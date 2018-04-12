@@ -1,3 +1,24 @@
-// body {
-//     display: none;
-// }
+.height100 {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.gradient-1 {
+    background: linear-gradient(135deg, #622774 0%, #c53364 100%);
+    color: #fff;
+}
+
+.gradient-2 {
+    background: linear-gradient(135deg, #46464b 0%, #212125 100%);
+    color: #fff !important;
+    pre {
+        color: #fff !important;
+    }
+}
+
+.vertical-center {
+    position: absolute;
+    width: 100%;
+    top: calc(25vh);
+    left: 0;
+}

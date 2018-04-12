@@ -4,9 +4,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const PrerenderSPAPlugin = require('prerender-spa-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
-const WorkboxPlugin = require('workbox-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
   filename: 'css/[name]-[hash].css',
   disable: process.env.NODE_ENV === 'development',
@@ -24,35 +21,6 @@ let cleanOptions = {
   beforeEmit: false,
   allowExternal: false,
 };
-let WebpackPwaManifestOptions = {
-  name: 'My Progressive Web App',
-  short_name: 'MyPWA',
-  description: 'My awesome Progressive Web App!',
-  display: "standalone",
-  start_url: "/",
-  background_color: '#e60a0a',
-  icons: [{
-    src: path.resolve('src/img/icon.png'),
-    sizes: [16, 32, 57, 60, 72, 76, 96, 114, 120, 128, 144, 152, 180, 192, 256, 384, 512], // multiple sizes
-    destination: path.join('img/icons')
-  },
-    {
-      src: path.resolve('src/img/icon.png'),
-      size: '1024x1024', // you can also use the specifications pattern
-      destination: path.join('img/icons')
-    }
-  ],
-  gcm_sender_id: "103953800507",
-}
-let workboxOptions = {
-  globPatterns: [' "**/*.{html,md,css,txt,less,scss,otf,eot,svg,ttf,woff,woff2,jpg,png,gif,yml,js,ico,sh,xml,map}"'],
-  swDest: 'sw.js',
-  swSrc: './src/js/sw.js',
-  globIgnores: [
-    "**/node_modules/**/*"
-  ],
-  maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
-}
 let pathsToClean = ['dist'];
 module.exports = {
   entry: {
@@ -186,12 +154,6 @@ module.exports = {
       template: pathConfig.INDEX,
     }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
-    new PrerenderSPAPlugin({
-      staticDir: path.join(__dirname, 'dist'),
-      routes: ['/', '/home', '/404', '/users', '/about', '/product'],
-    }),
-    new WebpackPwaManifest(WebpackPwaManifestOptions),
-    new WorkboxPlugin.InjectManifest(workboxOptions),
   ],
   resolve: {
     extensions: ['.js', '.jsx']

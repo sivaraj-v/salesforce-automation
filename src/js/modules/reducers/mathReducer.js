@@ -6,7 +6,6 @@ const mathReducer = (state = {
     case "SET_NAME":
       state = {
         ...state,
-        name: "Changed",
         soUserdata: action.payload
       };
       break;

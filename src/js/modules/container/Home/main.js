@@ -4,8 +4,7 @@ export class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      SO: {},
-      Loading: this.props.Loading
+      SO: {}
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmits = this.handleSubmits.bind(this);
@@ -19,7 +18,6 @@ export class Main extends React.Component {
     //     Loading: true
     //   }
     // });
-    this.props.Loading = true;
     this.props.soUserInput(value);
   }
   handleSubmit(e) {
@@ -28,7 +26,7 @@ export class Main extends React.Component {
     formData['alias'] = this.refs['alias'].value;
     formData['projectName'] = this.refs['projectName'].value;
 
-    this.props.Loading = true;
+
     this.props.soUserInput(formData);
     this.setState((prevState, props) => {
       return {
@@ -42,8 +40,9 @@ export class Main extends React.Component {
 
     return (
       <form className="form-horizontal vertical-center" autocomplete="off"  onSubmit={this.handleSubmit}>
-      {console.log(this)}
-      <fieldset disabled={this.state.Loading == undefined ? true : false}>
+      {/* {console.log(this)} */}
+      <fieldset>
+      {/* disabled={this.state.Loading == undefined ? true : false} */}
         <div className="col-sm-12">
           <h1> Scratch Org</h1>
         </div>

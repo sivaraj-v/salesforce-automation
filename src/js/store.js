@@ -1,23 +1,26 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { mathReducer, userReducer } from "./modules";
+import { mathReducer, userReducer, loader } from "./modules";
 const combine = combineReducers({
   SO_Creation: mathReducer,
-  user: userReducer
+  user: userReducer,
+  loader : loader
 });
 const store = createStore(
   combine,
   {},
   composeWithDevTools(
-    applyMiddleware(createLogger()),
-    // other store enhancers if any
+    applyMiddleware(createLogger())
   )
 );
 
 // store.subscribe(() => {
 //   console.log(store.getState());
 // });
+// console.log(store.getState());
+
+
 
 export default store;
 

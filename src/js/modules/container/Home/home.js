@@ -4,14 +4,14 @@ import { connect } from "react-redux";
 import { User } from "../../component/user";
 import { Main } from "./main";
 import { SET_NAME } from "../../action/mathAction";
+import { LOADER } from "../../action/LoaderAction";
 import JSON from '../../JSON/index';
 import JSONPretty from 'react-json-pretty';
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      SO: {},
-      Loading: false
+      SO: {}
     }
     this.updateProps = this.updateProps.bind(this);
   }
@@ -20,6 +20,11 @@ class Home extends React.Component {
     this.setState({
       SO: {}
     })
+  }
+  componentDidMount() {
+    console.log("DID")
+    this.props.loadingState(true)
+    // dispatch(LOADER(true))
   }
 
   // componentDidMount() {
@@ -53,13 +58,11 @@ class Home extends React.Component {
 
   updateProps(value) {
     this.props.setName(value);
-    this.setState({
-      Loading: true
-    })
   }
   render() {
+    console.log(this);
     return (
-    this.state.Loading ?
+    this.props.loader ?
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-8 gradient-1 height100 greyout">
@@ -76,7 +79,7 @@ class Home extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-8 gradient-1 height100">
-              <Main Loading={this.state.Loading} soUserInput={this.updateProps}/>
+              <Main soUserInput={this.updateProps}/>
               { /* <User username={this.props.user.name}/> */ }
           </div>
           <div className="col-lg-4 gradient-2 height100">
@@ -90,7 +93,8 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    SO_Creation: state.SO_Creation
+    SO_Creation: state.SO_Creation,
+    loader : state.loader
   };
 };
 
@@ -98,7 +102,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setName: (name) => {
       dispatch(SET_NAME(name));
+    },
+    loadingState: (value) =>{
+      dispatch(LOADER(value));
     }
   };
 };
+
+
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

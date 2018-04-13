@@ -5,7 +5,7 @@ import AppRoot from "./component/Root";
 import JSON from "./JSON";
 
 
-import { mathReducer, userReducer } from "./reducers";
+import { mathReducer, userReducer, loader } from "./reducers";
 
 // Reducers
-export { Home, AppRoot, NotFound, JSON, Product, mathReducer, userReducer };
+export { Home, AppRoot, NotFound, JSON, Product, mathReducer, userReducer, loader };

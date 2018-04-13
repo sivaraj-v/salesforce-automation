@@ -2,12 +2,12 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { mathReducer, userReducer, loader } from "./modules";
-const combine = combineReducers({
+export const combine = combineReducers({
   SO_Creation: mathReducer,
   user: userReducer,
   loader : loader
 });
-const store = createStore(
+export const store = createStore(
   combine,
   {},
   composeWithDevTools(

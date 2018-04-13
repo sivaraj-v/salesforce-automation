@@ -21,11 +21,17 @@ class Home extends React.Component {
       SO: {}
     })
   }
-  componentDidMount() {
-    console.log("DID")
-    this.props.loadingState(true)
-    // dispatch(LOADER(true))
-  }
+  // componentDidMount() {
+  //   console.log("DID")
+
+  //   // dispatch(LOADER(true))
+  // }
+
+  // this.setState((prevState, props) => {
+  //   return {
+  //     Loading: true
+  //   }
+  // });
 
   // componentDidMount() {
   //     console.log("Component did mount!");
@@ -51,16 +57,15 @@ class Home extends React.Component {
   // componentDidUpdate(prevProps, prevState) {
   //     console.log("Component did update", prevProps, prevState);
   // }
-
   // componentWillUnmount() {
   //     console.log("Component will unmount");
   // }
-
   updateProps(value) {
     this.props.setName(value);
+    this.props.loadingState(true);
   }
   render() {
-    console.log(this);
+    // console.log(this);
     return (
     this.props.loader ?
       <div className="container-fluid">
@@ -94,7 +99,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     SO_Creation: state.SO_Creation,
-    loader : state.loader
+    loader: state.loader
   };
 };
 
@@ -103,7 +108,7 @@ const mapDispatchToProps = (dispatch) => {
     setName: (name) => {
       dispatch(SET_NAME(name));
     },
-    loadingState: (value) =>{
+    loadingState: (value) => {
       dispatch(LOADER(value));
     }
   };

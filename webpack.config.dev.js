@@ -140,7 +140,7 @@ module.exports = {
   plugins: [
     new UglifyJsPlugin({
       uglifyOptions: {
-        compress: true,
+        compress: false,
         ie8: true,
         sourceMap: true
       },

@@ -168,8 +168,8 @@ app.post('/SO', function(req, res) {
       if (response.success) {
         spinner.stop();
         console.log(success('User LoggedIn successfully'));
-        create_Project('GreatMan');
-      //res.send(req.body);
+       // create_Project('GreatMan');
+      res.send(req.body);
       } else {
         console.log(error('Invalid Comment, Please contact administrator'));
         spinner.stop();

@@ -1,6 +1,12 @@
-export function SET_NAME(value) {
+export function SET_USERDATA(value) {
   return {
-    type: "SET_NAME",
+    type: "SET_USERDATA",
+    payload: value
+  };
+}
+export function REQUEST_USERDATA(value) {
+  return {
+    type: "REQUEST_USERDATA",
     payload: value
   };
 }

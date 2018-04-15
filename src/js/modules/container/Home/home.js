@@ -3,7 +3,7 @@ const JSON5 = require('json5')
 import { connect } from "react-redux";
 import { User } from "../../component/user";
 import { Main } from "./main";
-import { SET_NAME } from "../../action/mathAction";
+import { SET_USERDATA, REQUEST_USERDATA } from "../../action/mathAction";
 import { LOADER } from "../../action/LoaderAction";
 import JSON from '../../JSON/index';
 import JSONPretty from 'react-json-pretty';
@@ -21,11 +21,12 @@ class Home extends React.Component {
       SO: {}
     })
   }
-  // componentDidMount() {
-  //   console.log("DID")
-
-  //   // dispatch(LOADER(true))
-  // }
+  componentDidMount() {
+    if (Object.keys(this.props.SO_Creation.soUserdata).length > 0) {
+      const soUserdata = this.props.SO_Creation.soUserdata;
+      this.props.req_userData(soUserdata);
+    }
+  }
 
   // this.setState((prevState, props) => {
   //   return {
@@ -39,7 +40,8 @@ class Home extends React.Component {
 
   // componentWillReceiveProps(nextProps) {
   //   console.log("Component will receive props", nextProps);
-
+  // // const soUserdata = nextProps.props.SO_Creation.soUserdata;
+  // // this.props.req_userData(soUserdata);
   // }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -65,7 +67,7 @@ class Home extends React.Component {
     this.props.loadingState(true);
   }
   render() {
-    // console.log(this);
+ //   console.log(this);
     return (
     this.props.loader ?
       <div className="container-fluid">
@@ -84,7 +86,7 @@ class Home extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-8 gradient-1 height100">
-              <Main soUserInput={this.updateProps}/>
+              <Main loader={this.props.loader} soUserInput={this.updateProps}/>
               { /* <User username={this.props.user.name}/> */ }
           </div>
           <div className="col-lg-4 gradient-2 height100">
@@ -95,7 +97,7 @@ class Home extends React.Component {
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user,
     SO_Creation: state.SO_Creation,
@@ -103,13 +105,20 @@ const mapStateToProps = (state) => {
   };
 };
 
+// const mapStateToProps = ({ MyReducer }, { myProp }) => ({
+//   myProp: myProp || MyReducer.myProp,
+// })
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setName: (name) => {
-      dispatch(SET_NAME(name));
+      dispatch(SET_USERDATA(name));
     },
     loadingState: (value) => {
       dispatch(LOADER(value));
+    },
+    req_userData: (value) => {
+      dispatch(REQUEST_USERDATA(value));
     }
   };
 };

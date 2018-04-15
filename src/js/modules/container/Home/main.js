@@ -9,13 +9,18 @@ export class Main extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.state = {
-      loader: this.props.loader == false ? false : true
+     // loader: this.props.loader == false ? false : true
     }
   }
-  submitHandler() {
+  submitHandler(event) {
+    var that = this;
     axios.get('https://jsonplaceholder.typicode.com/posts/')
       .then(function(response) {
-        console.log("Connected");
+        console.log(that);
+        const fieldName = "Child";
+        const fieldValue = "Reached";
+        that.props.onChange(fieldName, fieldValue);
+      console.log("Connected");
       //dispatch action
       })
       .catch(function(error) {
@@ -27,11 +32,11 @@ export class Main extends React.Component {
     const formData = {};
     formData['alias'] = this.refs['alias'].value;
     formData['projectName'] = this.refs['projectName'].value;
-    this.props.soUserInput(formData);
+    this.props.loader = true;
     this.submitHandler();
   }
   render() {
-    console.log(this);
+    console.log("Child",this);
     return (
       <form className="form-horizontal vertical-center" autocomplete="off"  onSubmit={this.handleSubmit}>
       <fieldset disabled={this.state.loader ? true : false}>

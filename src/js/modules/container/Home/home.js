@@ -13,7 +13,7 @@ class Home extends React.Component {
     this.state = {
       SO: {}
     }
-    this.updateProps = this.updateProps.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
   componentWillMount() {
     //  console.log(this)
@@ -34,47 +34,49 @@ class Home extends React.Component {
   //   }
   // });
 
-  // componentDidMount() {
-  //     console.log("Component did mount!");
-  // }
+  componentDidMount() {
+      console.log("Component did mount!");
+  }
 
-  // componentWillReceiveProps(nextProps) {
-  //   console.log("Component will receive props", nextProps);
-  // // const soUserdata = nextProps.props.SO_Creation.soUserdata;
-  // // this.props.req_userData(soUserdata);
-  // }
+  componentWillReceiveProps(nextProps) {
+    console.log("Component will receive props", nextProps);
+  // const soUserdata = nextProps.props.SO_Creation.soUserdata;
+  // this.props.req_userData(soUserdata);
+  }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //     console.log("Should Component update", nextProps, nextState);
-  //     // if (nextState.status === 1) {
-  //     //     return false;
-  //     // }
-  //     return true;
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+      console.log("Should Component update", nextProps, nextState);
+      // if (nextState.status === 1) {
+      //     return false;
+      // }
+      return true;
+  }
 
-  // componentWillUpdate(nextProps, nextState) {
-  //     console.log("Component will update", nextProps, nextState);
-  // }
+  componentWillUpdate(nextProps, nextState) {
+      console.log("Component will update", nextProps, nextState);
+  }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //     console.log("Component did update", prevProps, prevState);
-  // }
-  // componentWillUnmount() {
-  //     console.log("Component will unmount");
-  // }
-  updateProps(value) {
-    this.props.setName(value);
-    this.props.loadingState(true);
+  componentDidUpdate(prevProps, prevState) {
+      console.log("Component did update", prevProps, prevState);
+  }
+  componentWillUnmount() {
+      console.log("Component will unmount");
+  }
+  onChange(field, value) {
+    // this.props.setName(value);
+    // this.props.loadingState(true);
+    alert(1)
+    this.setState({[field]: value});
   }
   render() {
- //   console.log(this);
+   console.log("parent",this);
     return (
     this.props.loader ?
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-8 gradient-1 height100 greyout">
               <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-              <Main soUserInput={this.updateProps}/>
+              {/* <Main soUserInput={this.updateProps}/> */}
               { /* <User username={this.props.user.name}/> */ }
           </div>
           <div className="col-lg-4 gradient-2 height100">
@@ -86,7 +88,7 @@ class Home extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-8 gradient-1 height100">
-              <Main loader={this.props.loader} soUserInput={this.updateProps}/>
+              <Main onChange={this.onChange.bind(this)} />
               { /* <User username={this.props.user.name}/> */ }
           </div>
           <div className="col-lg-4 gradient-2 height100">

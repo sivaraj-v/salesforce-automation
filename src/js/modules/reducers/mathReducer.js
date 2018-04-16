@@ -10,10 +10,6 @@ const mathReducer = (state = {
         soUserdata: action.payload
       };
       break;
-      case "REQUEST_USERDATA":
-      console.log(state);
-      console.log(action);
-      break;
   }
   return state;
 };

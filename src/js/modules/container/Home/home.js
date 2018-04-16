@@ -3,7 +3,7 @@ const JSON5 = require('json5')
 import { connect } from "react-redux";
 // import { User } from "../../component/user";
 import { Main } from "./main";
-import { SET_USERDATA, REQUEST_USERDATA } from "../../action/mathAction";
+import { SET_USERDATA } from "../../action/mathAction";
 import { LOADER } from "../../action/LoaderAction";
 import JSON from '../../JSON/index';
 import JSONPretty from 'react-json-pretty';
@@ -11,16 +11,16 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      SO: {}
+
     }
     this.onChange = this.onChange.bind(this);
   }
-  componentWillMount() {
-    //  console.log(this)
-    this.setState({
-      SO: {}
-    })
-  }
+  // componentWillMount() {
+  //   //  console.log(this)
+  //   this.setState({
+  //     SO: {}
+  //   })
+  // }
   componentDidMount() {
     // if (Object.keys(this.props.SO_Creation.soUserdata).length > 0) {
     //   const soUserdata = this.props.SO_Creation.soUserdata;
@@ -63,21 +63,27 @@ class Home extends React.Component {
   //     console.log("Component will unmount");
   // }
   onChange(field, value) {
-    // this.props.setName(value);
-    // this.props.loadingState(true);
-    this.setState({[field]: value});
-    this.props.loader = this.state[field].loader
+    this.setState({
+      [field]: value
+    });
+
+    if (this.state[field].loader == true) {
+      this.props.setName(this.state);
+      this.props.loadingState(true);
+
+    }
+
 
   }
   render() {
-   console.log("parent",this);
     return (
     this.props.loader ?
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-8 gradient-1 height100 greyout">
               <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-              {/* <Main soUserInput={this.updateProps}/> */}
+              { /* <Main soUserInput={this.updateProps}/> */ }
+              <Main loader={this.props.loader} onChange={this.onChange.bind(this)} />
               { /* <User username={this.props.user.name}/> */ }
           </div>
           <div className="col-lg-4 gradient-2 height100">
@@ -89,7 +95,7 @@ class Home extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-8 gradient-1 height100">
-              <Main onChange={this.onChange.bind(this)} />
+              <Main loader={false} onChange={this.onChange.bind(this)} />
               { /* <User username={this.props.user.name}/> */ }
           </div>
           <div className="col-lg-4 gradient-2 height100">
@@ -119,9 +125,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     loadingState: (value) => {
       dispatch(LOADER(value));
-    },
-    req_userData: (value) => {
-      dispatch(REQUEST_USERDATA(value));
     }
   };
 };

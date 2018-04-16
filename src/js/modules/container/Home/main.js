@@ -10,18 +10,15 @@ export class Main extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.state = {
-      //  loader: this.props.loader ? true : false
-      loader : false
+
     }
   }
   submitHandler(event) {
     var that = this;
     axios.get('https://jsonplaceholder.typicode.com/posts/')
       .then(function(response) {
-        console.log(that);
         that.setState({loader:true});
         that.props.onChange(fieldName, that.state);
-        console.log("Connected");
       //dispatch action
       })
       .catch(function(error) {
@@ -37,10 +34,9 @@ export class Main extends React.Component {
     this.submitHandler();
   }
   render() {
-    console.log("Child", this);
     return (
       <form className="form-horizontal vertical-center" autocomplete="off"  onSubmit={this.handleSubmit}>
-      <fieldset disabled={this.state.loader ? true : false}>
+      <fieldset disabled={this.props.loader ? true : false}>
         <div className="col-sm-12">
           <h1> Scratch Org</h1>
         </div>

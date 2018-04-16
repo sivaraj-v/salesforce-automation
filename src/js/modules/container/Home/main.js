@@ -10,7 +10,6 @@ export class Main extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.state = {
-
     }
   }
   submitHandler(event) {
@@ -31,7 +30,7 @@ export class Main extends React.Component {
     formData['alias'] = this.refs['alias'].value;
     formData['projectName'] = this.refs['projectName'].value;
     this.props.loader = true;
-    this.submitHandler();
+    this.submitHandler(formData);
   }
   render() {
     return (

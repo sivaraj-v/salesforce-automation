@@ -27,7 +27,7 @@ class Home extends React.Component {
   // }
   componentWillMount() {
     var that = this;
-    socket.on('news_by_server', function(data) {
+    socket.on('so_creation', function(data) {
       that.setState({
         time: data.toString()
       })

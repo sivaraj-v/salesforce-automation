@@ -1,7 +1,7 @@
 import React from 'react';
 const JSON5 = require('json5')
 import { connect } from "react-redux";
-import { User } from "../../component/user";
+// import { User } from "../../component/user";
 import { Main } from "./main";
 import { SET_USERDATA, REQUEST_USERDATA } from "../../action/mathAction";
 import { LOADER } from "../../action/LoaderAction";
@@ -22,10 +22,10 @@ class Home extends React.Component {
     })
   }
   componentDidMount() {
-    if (Object.keys(this.props.SO_Creation.soUserdata).length > 0) {
-      const soUserdata = this.props.SO_Creation.soUserdata;
-      this.props.req_userData(soUserdata);
-    }
+    // if (Object.keys(this.props.SO_Creation.soUserdata).length > 0) {
+    //   const soUserdata = this.props.SO_Creation.soUserdata;
+    //   this.props.req_userData(soUserdata);
+    // }
   }
 
   // this.setState((prevState, props) => {
@@ -34,39 +34,40 @@ class Home extends React.Component {
   //   }
   // });
 
-  componentDidMount() {
-      console.log("Component did mount!");
-  }
+  // componentDidMount() {
+  //     console.log("Component did mount!");
+  // }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("Component will receive props", nextProps);
-  // const soUserdata = nextProps.props.SO_Creation.soUserdata;
-  // this.props.req_userData(soUserdata);
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("Component will receive props", nextProps);
+  // // const soUserdata = nextProps.props.SO_Creation.soUserdata;
+  // // this.props.req_userData(soUserdata);
+  // }
 
-  shouldComponentUpdate(nextProps, nextState) {
-      console.log("Should Component update", nextProps, nextState);
-      // if (nextState.status === 1) {
-      //     return false;
-      // }
-      return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //     console.log("Should Component update", nextProps, nextState);
+  //     // if (nextState.status === 1) {
+  //     //     return false;
+  //     // }
+  //     return true;
+  // }
 
-  componentWillUpdate(nextProps, nextState) {
-      console.log("Component will update", nextProps, nextState);
-  }
+  // componentWillUpdate(nextProps, nextState) {
+  //     console.log("Component will update", nextProps, nextState);
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-      console.log("Component did update", prevProps, prevState);
-  }
-  componentWillUnmount() {
-      console.log("Component will unmount");
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //     console.log("Component did update", prevProps, prevState);
+  // }
+  // componentWillUnmount() {
+  //     console.log("Component will unmount");
+  // }
   onChange(field, value) {
     // this.props.setName(value);
     // this.props.loadingState(true);
-    alert(1)
     this.setState({[field]: value});
+    this.props.loader = this.state[field].loader
+
   }
   render() {
    console.log("parent",this);
@@ -101,7 +102,7 @@ class Home extends React.Component {
 }
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user,
+    // user: state.user,
     SO_Creation: state.SO_Creation,
     loader: state.loader
   };

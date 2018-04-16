@@ -3,13 +3,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { LOADER } from "../../action/LoaderAction";
+const fieldName = "FormInput";
 export class Main extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.state = {
-     // loader: this.props.loader == false ? false : true
+      //  loader: this.props.loader ? true : false
+      loader : false
     }
   }
   submitHandler(event) {
@@ -17,10 +19,9 @@ export class Main extends React.Component {
     axios.get('https://jsonplaceholder.typicode.com/posts/')
       .then(function(response) {
         console.log(that);
-        const fieldName = "Child";
-        const fieldValue = "Reached";
-        that.props.onChange(fieldName, fieldValue);
-      console.log("Connected");
+        that.setState({loader:true});
+        that.props.onChange(fieldName, that.state);
+        console.log("Connected");
       //dispatch action
       })
       .catch(function(error) {
@@ -36,7 +37,7 @@ export class Main extends React.Component {
     this.submitHandler();
   }
   render() {
-    console.log("Child",this);
+    console.log("Child", this);
     return (
       <form className="form-horizontal vertical-center" autocomplete="off"  onSubmit={this.handleSubmit}>
       <fieldset disabled={this.state.loader ? true : false}>

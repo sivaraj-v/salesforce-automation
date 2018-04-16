@@ -2,6 +2,8 @@ import React from 'react';
 const JSON5 = require('json5')
 import { connect } from "react-redux";
 // import { User } from "../../component/user";
+import socketIOClient from "socket.io-client";
+const socket = socketIOClient('http://localhost:9000');
 import { Main } from "./main";
 import { SET_USERDATA } from "../../action/mathAction";
 import { LOADER } from "../../action/LoaderAction";
@@ -11,8 +13,10 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
-    }
+      color: 'white',
+      time: new Date(),
+      console: []
+    };
     this.onChange = this.onChange.bind(this);
   }
   // componentWillMount() {
@@ -21,11 +25,25 @@ class Home extends React.Component {
   //     SO: {}
   //   })
   // }
+  componentWillMount() {
+    var that = this;
+    socket.on('news_by_server', function(data) {
+      that.setState({
+        time: data.toString()
+      })
+      console.log(that.state.console)
+      that.state.console = that.state.time.toString();
+      that.setState(
+        that.state
+      )
+    });
+  }
   componentDidMount() {
     // if (Object.keys(this.props.SO_Creation.soUserdata).length > 0) {
     //   const soUserdata = this.props.SO_Creation.soUserdata;
     //   this.props.req_userData(soUserdata);
     // }
+
   }
 
   // this.setState((prevState, props) => {
@@ -72,9 +90,9 @@ class Home extends React.Component {
       this.props.loadingState(true);
 
     }
-
-
   }
+
+
   render() {
     return (
     this.props.loader ?
@@ -82,12 +100,18 @@ class Home extends React.Component {
         <div className="row">
           <div className="col-lg-8 gradient-1 height100 greyout">
               <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-              { /* <Main soUserInput={this.updateProps}/> */ }
               <Main loader={this.props.loader} onChange={this.onChange.bind(this)} />
-              { /* <User username={this.props.user.name}/> */ }
           </div>
           <div className="col-lg-4 gradient-2 height100">
-            <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty>
+              <div className="vertical-split-50">
+                <h1>Console</h1>
+                <code>
+                  {this.state.console}
+                </code>
+              </div>
+              <div className="vertical-split-50">
+                <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty>
+              </div>
           </div>
         </div>
       </div>
@@ -96,10 +120,17 @@ class Home extends React.Component {
         <div className="row">
           <div className="col-lg-8 gradient-1 height100">
               <Main loader={false} onChange={this.onChange.bind(this)} />
-              { /* <User username={this.props.user.name}/> */ }
           </div>
           <div className="col-lg-4 gradient-2 height100">
-            <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty>
+              <div className="vertical-split-50">
+                <h1>Console</h1>
+                <code>
+                  {this.state.console}
+                </code>
+              </div>
+              <div className="vertical-split-50">
+                <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty>
+              </div>
           </div>
         </div>
       </div>

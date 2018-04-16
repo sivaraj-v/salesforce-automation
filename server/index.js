@@ -1,17 +1,22 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
-var fs = require('fs');
-var prompt = require('prompt');
-var cmd = require('node-command-line'),
+const express = require('express');
+const app = express();
+const port = 9000;
+var server = app.listen(port);
+var io = require('socket.io').listen(server);
+const http = require('http')
+const socketIO = require('socket.io')
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const prompt = require('prompt');
+const cmd = require('node-command-line'),
   Promise = require('bluebird');
-var colors = require('colors/safe');
+const colors = require('colors/safe');
 prompt.message = colors.bgGreen(' ');
 prompt.delimiter = colors.green(' ');
 const ora = require('ora');
 const spinner = ora('Loading Data');
-var promisify = require('node-promisify');
-var obj_temp = {
+const promisify = require('node-promisify');
+const obj_temp = {
   projectName: '',
   packages_data: '',
   count_LifeCycle_install_pkg: 0,
@@ -44,7 +49,7 @@ app.use(bodyParser.json())
 // Add headers
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // Request headers you wish to allow
@@ -55,7 +60,31 @@ app.use(function(req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-var port = 9000;
+
+
+// start the server
+io.on('connection', socket => {
+  console.log('New client connected')
+  // just like on the client side, we have a socket.on method that takes a callback function
+  socket.on('change color', (color) => {
+    // once we get a 'change color' event from one of our clients, we will send it to the rest of the clients
+    // we make use of the socket.emit method again with the argument given to use from the callback function above
+    console.log('Color Changed to: ', color)
+    io.sockets.emit('change color', color)
+    io.sockets.emit('datetime', {
+      datetime: new Date()
+    });
+  })
+  setInterval(function() {
+    socket.emit('news_by_server', new Date());
+  }, 1000);
+  // disconnect is fired when a client leaves the server
+  socket.on('disconnect', () => {
+    console.log('user disconnected')
+  })
+})
+
+
 app.post('/SO', function(req, res) {
   console.log('receiving data...');
   console.log('body is ', req.body);
@@ -66,8 +95,8 @@ app.post('/SO', function(req, res) {
       spinner.text = 'Gathering data from server...';
     }, 1000);
     Promise.coroutine(function*() {
-      //var response = yield cmd.run('sfdx force:org:display -u ' + obj_temp.scratch_org_alias);
-      var response = yield cmd.run('npm -v');
+      //const response = yield cmd.run('sfdx force:org:display -u ' + obj_temp.scratch_org_alias);
+      const response = yield cmd.run('npm -v');
       if (response.success) {
         spinner.stop();
         prompt.start();
@@ -101,8 +130,8 @@ app.post('/SO', function(req, res) {
       spinner.text = 'Generating password...';
     }, 1000);
     Promise.coroutine(function*() {
-      //var response = yield cmd.run('sfdx force:user:password:generate -u ' + obj_temp.scratch_org_alias);
-      var response = yield cmd.run('npm -v');
+      //const response = yield cmd.run('sfdx force:user:password:generate -u ' + obj_temp.scratch_org_alias);
+      const response = yield cmd.run('npm -v');
       if (response.success) {
         spinner.stop();
         spinner.succeed('Password generated successfully');
@@ -122,14 +151,14 @@ app.post('/SO', function(req, res) {
     }, 1000);
     obj_temp.scratch_org_alias = value;
     Promise.coroutine(function*() {
-      //var response = yield cmd.run('sfdx force:org:create -f ' + obj_temp.projectName + '/config/project-scratch-def.json -a ' + value + ' -d 30');
-      var response = yield cmd.run('npm -v');
+      //const response = yield cmd.run('sfdx force:org:create -f ' + obj_temp.projectName + '/config/project-scratch-def.json -a ' + value + ' -d 30');
+      const response = yield cmd.run('npm -v');
       if (response.success) {
         spinner.succeed('Org created successfully');
-        // var orgPattern = /00D[A-Za-z\d]{15}/;
-        // var emailPattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
-        // var orgPatternResolvedArray = orgPattern.exec(response.message);
-        // var emailPatternResolvedArray = emailPattern.exec(response.message);
+        // const orgPattern = /00D[A-Za-z\d]{15}/;
+        // const emailPattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
+        // const orgPatternResolvedArray = orgPattern.exec(response.message);
+        // const emailPatternResolvedArray = emailPattern.exec(response.message);
         // if (orgPatternResolvedArray && orgPatternResolvedArray.length > 0) {
         //   obj_temp.scratch_org_id = orgPatternResolvedArray[0];
         // }
@@ -151,7 +180,7 @@ app.post('/SO', function(req, res) {
       spinner.text = 'Creating project...';
     }, 1000);
     Promise.coroutine(function*() {
-      var response = yield cmd.run('sfdx force:project:create -n ' + value);
+      const response = yield cmd.run('sfdx force:project:create -n ' + value);
       if (response.success) {
         spinner.succeed('Project created successfully');
         fs.exists('./config/project-scratch-def.json', function(exists) {
@@ -178,7 +207,7 @@ app.post('/SO', function(req, res) {
       spinner.text = process;
     }, 1000);
     Promise.coroutine(function*() {
-      var response = yield cmd.run(value);
+      const response = yield cmd.run(value);
       if (response.success) {
         spinner.stop();
         console.log(success('User LoggedIn successfully'));
@@ -190,13 +219,11 @@ app.post('/SO', function(req, res) {
       }
     })();
   }
-  //var _cmd_login = 'sfdx force:auth:web:login -r ' + 'https://eflang--staging.cs87.my.salesforce.com' + ' -d -a ' + 'Alias';
-  var _cmd_login = 'npm -v';
+  //const _cmd_login = 'sfdx force:auth:web:login -r ' + 'https://eflang--staging.cs87.my.salesforce.com' + ' -d -a ' + 'Alias';
+  const _cmd_login = 'npm -v';
   console.log("value:" + _cmd_login);
   cmd_Exec(_cmd_login, 'Waiting for loggin into salesforce..!');
 
 
 });
-// start the server
-app.listen(port);
 console.log('Server started! At http://localhost:' + port);

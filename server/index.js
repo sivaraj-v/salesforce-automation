@@ -41,6 +41,20 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(bodyParser.json())
+// Add headers
+app.use(function(req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  // Pass to next layer of middleware
+  next();
+});
 var port = 9000;
 app.post('/SO', function(req, res) {
   console.log('receiving data...');
@@ -58,22 +72,22 @@ app.post('/SO', function(req, res) {
         spinner.stop();
         prompt.start();
         res.send(req.body);
-        // prompt.get(
-        //   [
-        //     {
-        //       name: 'install_packages',
-        //       required: true,
-        //       hidden: false,
-        //       description: Head('Enter to install packages:'),
-        //       default: 'yes',
-        //     },
-        //   ],
-        //   function(err, result) {
-        //     fs.readFile('config/configdata.json', 'utf8', function readFileCallback(err, data) {
-        //       processInstallation_init(data);
-        //     });
-        //   }
-        // );
+      // prompt.get(
+      //   [
+      //     {
+      //       name: 'install_packages',
+      //       required: true,
+      //       hidden: false,
+      //       description: Head('Enter to install packages:'),
+      //       default: 'yes',
+      //     },
+      //   ],
+      //   function(err, result) {
+      //     fs.readFile('config/configdata.json', 'utf8', function readFileCallback(err, data) {
+      //       processInstallation_init(data);
+      //     });
+      //   }
+      // );
       } else {
         console.log(error('Invalid Comment, Please contact administrator'));
         spinner.stop();
@@ -168,8 +182,8 @@ app.post('/SO', function(req, res) {
       if (response.success) {
         spinner.stop();
         console.log(success('User LoggedIn successfully'));
-       // create_Project('GreatMan');
-      res.send(req.body);
+        // create_Project('GreatMan');
+        res.send(req.body);
       } else {
         console.log(error('Invalid Comment, Please contact administrator'));
         spinner.stop();

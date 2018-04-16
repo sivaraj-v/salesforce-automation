@@ -14,7 +14,8 @@ export class Main extends React.Component {
   }
   submitHandler(event) {
     var that = this;
-    axios.get('https://jsonplaceholder.typicode.com/posts/')
+    console.log(event);
+    axios.post('http://localhost:9000/SO',event)
       .then(function(response) {
         that.setState({loader:true});
         that.props.onChange(fieldName, that.state);

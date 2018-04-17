@@ -18,6 +18,7 @@ class Home extends React.Component {
       console: []
     };
     this.onChange = this.onChange.bind(this);
+    this.loaderState = this.loaderState.bind(this);
   // this.props.loadingState(true);
   }
   // componentWillMount() {
@@ -80,21 +81,25 @@ class Home extends React.Component {
   // componentWillUnmount() {
   //     console.log("Component will unmount");
   // }
-  onChange(field, value, loader) {
-    console.log("loader", loader);
-    if (loader == true) {
-      this.props.loadingState(true);
-    }else{
-      this.props.loadingState(false);
-    }
+  onChange(field, value) {
+    console.log(field);
+    console.log(value);
     if (Object.keys(value).length > 0) {
-      this.setState({
-        [field]: value
+      this.setState((prevState, props) => {
+        return {
+          ...prevState,
+          [field]: value
+        }
       });
     }
   }
-
-
+  loaderState(loader) {
+    if (loader == true) {
+      this.props.loadingState(true);
+    } else {
+      this.props.loadingState(false);
+    }
+  }
   render() {
     return (
     this.props.loader ?
@@ -104,7 +109,7 @@ class Home extends React.Component {
           <div id="overlay">
             <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
           </div>
-            <Main loader={this.props.loader} onChange={this.onChange.bind(this)} />
+            <Main loader={this.props.loader} loaderState={this.loaderState.bind(this)} onChange={this.onChange.bind(this)} />
           </div>
           <div className="col-lg-4 gradient-2 height100">
               <div className="vertical-split-50">
@@ -123,7 +128,7 @@ class Home extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-8 gradient-1 height100">
-              <Main loader={false} onChange={this.onChange.bind(this)} />
+              <Main loader={false} loaderState={this.loaderState.bind(this)} onChange={this.onChange.bind(this)} />
           </div>
           <div className="col-lg-4 gradient-2 height100">
               <div className="vertical-split-50">

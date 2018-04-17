@@ -9,20 +9,24 @@ export class Main extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
-    this.loaderStateSetter = this.loaderStateSetter.bind(this);
+    this.loaderStateLocal = this.loaderStateLocal.bind(this);
+    this.onChangeLocal = this.onChangeLocal.bind(this);
     this.state = {
     }
   }
-  loaderStateSetter(value) {
-    this.props.onChange(fieldName, this.state, value);
+  loaderStateLocal(value) {
+    this.props.loaderState(value);
+  }
+  onChangeLocal(state){
+    this.props.onChange(fieldName, state);
   }
   submitHandler(event) {
     var that = this;
-    that.loaderStateSetter(true)
+    that.loaderStateLocal(true)
     this.props.loader = true;
     axios.post('http://localhost:9000/SO', event)
       .then(function(response) {
-        that.loaderStateSetter(false)
+        that.loaderStateLocal(false)
       //dispatch action
       })
       .catch(function(error) {

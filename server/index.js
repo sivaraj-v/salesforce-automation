@@ -17,7 +17,7 @@ const ora = require('ora');
 const spinner = ora('Loading Data');
 const promisify = require('node-promisify');
 var moment = require('moment');
-var socket_message = "Connection Success";
+var socket_message = "🤝 Connection Success";
 io.on('connection', socket => {
   const obj_temp = {
     projectName: '',
@@ -68,19 +68,25 @@ io.on('connection', socket => {
   app.post('/SO', function(req, res) {
     console.log('receiving data...');
     console.log('body is ', req.body);
+    obj_temp.scratch_org_alias = req.body.alias;
+    obj_temp.projectName = req.body.projectName;
+    function responseEmit(params) {
+      socket_message = "😀 Copy your SO Details 🌟"
+      socket.emit('so_creation', moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + " => " + socket_message);
+      res.send(req.body);
+    }
     function displayScratchOrg(value) {
+      socket_message = "🆕 Displaying SO Details 🌟"
       spinner.start('Loading..');
-      setTimeout(() => {
-        spinner.color = 'yellow';
-        spinner.text = 'Gathering data from server...';
-      }, 1000);
       Promise.coroutine(function*() {
         //const response = yield cmd.run('sfdx force:org:display -u ' + obj_temp.scratch_org_alias);
         const response = yield cmd.run('npm -v');
         if (response.success) {
-          spinner.stop();
+
           prompt.start();
-          res.send(req.body);
+          socket_message = "😀 Copy your SO Details 🌟"
+          responseEmit()
+
         // prompt.get(
         //   [
         //     {
@@ -97,17 +103,21 @@ io.on('connection', socket => {
         //     });
         //   }
         // );
+        spinner.stop();
         } else {
+          socket_message = "👺 Someting went wrong contact admin 👀";
           console.log(error('Invalid Comment, Please contact administrator'));
           spinner.stop();
         }
       })();
     }
     function generatePassword(value) {
+      socket_message = "🏋️‍ Genrating password... 📢";
       spinner.start('Loading..');
       setTimeout(() => {
         spinner.color = 'yellow';
         spinner.text = 'Generating password...';
+        socket_message = "🏋️‍ Please wait... Generating password 📢";
       }, 1000);
       Promise.coroutine(function*() {
         //const response = yield cmd.run('sfdx force:user:password:generate -u ' + obj_temp.scratch_org_alias);
@@ -115,19 +125,23 @@ io.on('connection', socket => {
         if (response.success) {
           spinner.stop();
           spinner.succeed('Password generated successfully');
+          socket_message = "Password generated successfully ✔️";
           prompt.start();
           displayScratchOrg(value);
         } else {
+          socket_message = "👺 Someting went wrong contact admin 👀";
           console.log(error('Invalid Comment, Please contact administrator'));
           spinner.stop();
         }
       })();
     }
     function create_scratch_org(value, process) {
+      socket_message = "👨🏻‍💻 Creating SO for " + obj_temp.scratch_org_alias;
       spinner.start('Loading..');
       setTimeout(() => {
         spinner.color = 'yellow';
         spinner.text = 'Creating scratch org...';
+        socket_message = "Please wait... 🕑 creating SO for " + obj_temp.scratch_org_alias;
       }, 1000);
       obj_temp.scratch_org_alias = value;
       Promise.coroutine(function*() {
@@ -135,6 +149,7 @@ io.on('connection', socket => {
         const response = yield cmd.run('npm -v');
         if (response.success) {
           spinner.succeed('Org created successfully');
+          socket_message = "SO successfully ⛳️ created for " + obj_temp.scratch_org_alias;
           // const orgPattern = /00D[A-Za-z\d]{15}/;
           // const emailPattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
           // const orgPatternResolvedArray = orgPattern.exec(response.message);
@@ -146,18 +161,21 @@ io.on('connection', socket => {
           //   obj_temp.scratch_org_username = emailPatternResolvedArray[0];
           // }
           // if (!obj_temp.scratch_org_id || !obj_temp.scratch_org_username) return;
-          generatePassword(value);
+          generatePassword(obj_temp.scratch_org_alias);
         } else {
+          socket_message = "👺 Someting went wrong contact admin 👀";
           console.log(error('Invalid Comment, Please contact administrator'));
           spinner.stop();
         }
       })();
     }
     function create_Project(value, process) {
+      socket_message = "📁 Creating project...🕔 ";
       spinner.start('Loading..');
       setTimeout(() => {
         spinner.color = 'yellow';
         spinner.text = 'Creating project...';
+        socket_message = "📁 Creating project...🕣 ";
       }, 1000);
       Promise.coroutine(function*() {
         const response = yield cmd.run('sfdx force:project:create -n ' + value);
@@ -168,13 +186,15 @@ io.on('connection', socket => {
               fs.readFile('./config/project-scratch-def.json', 'utf8', function readFileCallback(err, data) {
                 fs.writeFile('./' + value + '/config/project-scratch-def.json', data, 'utf8', function readFileCallback(err, data) {
                   spinner.succeed('Project created successfully');
-                  create_scratch_org(value);
+                  socket_message = " 📩 Project Successfully Created ⛳️ ";
+                  create_scratch_org(obj_temp.scratch_org_alias);
                 });
               });
             }
           });
 
         } else {
+          socket_message = "👺 Someting went wrong contact admin 👀";
           console.log(error('Invalid Comment, Please contact administrator'));
           spinner.stop();
         }
@@ -191,10 +211,12 @@ io.on('connection', socket => {
         if (response.success) {
           spinner.stop();
           console.log(success('User LoggedIn successfully'));
-          // create_Project('GreatMan');
+          console.log(obj_temp.projectName);
+          create_Project(obj_temp.projectName);
           socket_message = "User LoggedIn successfully 🤙";
-          res.send(req.body);
+
         } else {
+          socket_message = "👺 Someting went wrong contact admin 👀";
           console.log(error('Invalid Comment, Please contact administrator'));
           spinner.stop();
         }

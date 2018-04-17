@@ -31,7 +31,6 @@ class Home extends React.Component {
       that.setState({
         time: data.toString()
       })
-      console.log(that.state.console)
       that.state.console = that.state.time.toString();
       that.setState(
         that.state

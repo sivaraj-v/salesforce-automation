@@ -82,15 +82,18 @@ class Home extends React.Component {
   //     console.log("Component will unmount");
   // }
   onChange(field, value) {
+    console.log(this);
     console.log(field);
     console.log(value);
     if (Object.keys(value).length > 0) {
+      alert(1)
       this.setState((prevState, props) => {
         return {
           ...prevState,
           [field]: value
         }
       });
+      this.props.setName(this.state)
     }
   }
   loaderState(loader) {

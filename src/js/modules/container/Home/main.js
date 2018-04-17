@@ -33,13 +33,14 @@ export class Main extends React.Component {
         // throw error
       });
   }
+
   handleSubmit(e) {
     e.preventDefault();
     const formData = {};
     formData['alias'] = this.refs['alias'].value;
     formData['projectName'] = this.refs['projectName'].value;
-
     this.submitHandler(formData);
+    this.props.onChange(fieldName,formData)
   }
   render() {
     return (

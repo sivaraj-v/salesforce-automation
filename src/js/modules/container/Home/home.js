@@ -18,6 +18,7 @@ class Home extends React.Component {
       console: []
     };
     this.onChange = this.onChange.bind(this);
+    // this.props.loadingState(true);
   }
   // componentWillMount() {
   //   //  console.log(this)
@@ -83,11 +84,9 @@ class Home extends React.Component {
     this.setState({
       [field]: value
     });
-
     if (this.state[field].loader == true) {
       this.props.setName(this.state);
       this.props.loadingState(true);
-
     }
   }
 
@@ -98,8 +97,10 @@ class Home extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-8 gradient-1 height100 greyout">
-              <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-              <Main loader={this.props.loader} onChange={this.onChange.bind(this)} />
+          <div id="overlay">
+            <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          </div>
+            <Main loader={this.props.loader} onChange={this.onChange.bind(this)} />
           </div>
           <div className="col-lg-4 gradient-2 height100">
               <div className="vertical-split-50">

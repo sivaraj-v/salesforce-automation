@@ -86,24 +86,7 @@ io.on('connection', socket => {
           prompt.start();
           socket_message = "😀 Copy your SO Details 🌟"
           responseEmit()
-
-        // prompt.get(
-        //   [
-        //     {
-        //       name: 'install_packages',
-        //       required: true,
-        //       hidden: false,
-        //       description: Head('Enter to install packages:'),
-        //       default: 'yes',
-        //     },
-        //   ],
-        //   function(err, result) {
-        //     fs.readFile('config/configdata.json', 'utf8', function readFileCallback(err, data) {
-        //       processInstallation_init(data);
-        //     });
-        //   }
-        // );
-        spinner.stop();
+          spinner.stop();
         } else {
           socket_message = "👺 Someting went wrong contact admin 👀";
           console.log(error('Invalid Comment, Please contact administrator'));

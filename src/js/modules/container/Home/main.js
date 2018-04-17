@@ -9,16 +9,20 @@ export class Main extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
+    this.loaderStateSetter = this.loaderStateSetter.bind(this);
     this.state = {
     }
   }
+  loaderStateSetter(value) {
+    this.props.onChange(fieldName, this.state, value);
+  }
   submitHandler(event) {
     var that = this;
-    console.log(event);
-    axios.post('http://localhost:9000/SO',event)
+    that.loaderStateSetter(true)
+    this.props.loader = true;
+    axios.post('http://localhost:9000/SO', event)
       .then(function(response) {
-        that.setState({loader:true});
-        that.props.onChange(fieldName, that.state);
+        that.loaderStateSetter(false)
       //dispatch action
       })
       .catch(function(error) {
@@ -30,7 +34,7 @@ export class Main extends React.Component {
     const formData = {};
     formData['alias'] = this.refs['alias'].value;
     formData['projectName'] = this.refs['projectName'].value;
-    this.props.loader = true;
+
     this.submitHandler(formData);
   }
   render() {

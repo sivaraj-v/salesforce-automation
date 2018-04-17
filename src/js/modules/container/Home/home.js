@@ -18,7 +18,7 @@ class Home extends React.Component {
       console: []
     };
     this.onChange = this.onChange.bind(this);
-    // this.props.loadingState(true);
+  // this.props.loadingState(true);
   }
   // componentWillMount() {
   //   //  console.log(this)
@@ -80,13 +80,17 @@ class Home extends React.Component {
   // componentWillUnmount() {
   //     console.log("Component will unmount");
   // }
-  onChange(field, value) {
-    this.setState({
-      [field]: value
-    });
-    if (this.state[field].loader == true) {
-      this.props.setName(this.state);
+  onChange(field, value, loader) {
+    console.log("loader", loader);
+    if (loader == true) {
       this.props.loadingState(true);
+    }else{
+      this.props.loadingState(false);
+    }
+    if (Object.keys(value).length > 0) {
+      this.setState({
+        [field]: value
+      });
     }
   }
 

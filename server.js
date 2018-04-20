@@ -284,8 +284,8 @@ io.on('connection', socket => {
           spinner.stop();
           console.log(success('User LoggedIn successfully'));
           console.log(obj_temp.projectName);
-         // create_Project(obj_temp.projectName);
-         displayScratchOrg(obj_temp.projectName);
+          create_Project(obj_temp.projectName);
+         //displayScratchOrg(obj_temp.projectName);
           socket_message = "User LoggedIn successfully 🤙";
 
         } else {

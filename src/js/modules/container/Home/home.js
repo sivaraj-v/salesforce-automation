@@ -1,5 +1,4 @@
 import React from 'react';
-const JSON5 = require('json5')
 import { connect } from "react-redux";
 // import { User } from "../../component/user";
 import socketIOClient from "socket.io-client";
@@ -15,10 +14,11 @@ class Home extends React.Component {
     this.state = {
       color: 'white',
       time: new Date(),
-      console: []
+      console: ''
     };
     this.onChange = this.onChange.bind(this);
     this.loaderState = this.loaderState.bind(this);
+
   // this.props.loadingState(true);
   }
   // componentWillMount() {
@@ -31,15 +31,24 @@ class Home extends React.Component {
     var that = this;
     socket.on('so_creation', function(data) {
       that.setState({
-        time: data.toString()
+        time: data.toString(),
+        console: that.state.time.toString()
       })
-      that.state.console = that.state.time.toString();
+
       that.setState(
         that.state
       )
     });
+    socket.on('so_creation_org_details', function(data) {
+      that.setState({
+        ...that.state,
+        'soDetails': data
+      })
+      that.props.setName(that.state)
+    });
   }
   componentDidMount() {
+    // console.log(this)
     // if (Object.keys(this.props.SO_Creation.soUserdata).length > 0) {
     //   const soUserdata = this.props.SO_Creation.soUserdata;
     //   this.props.req_userData(soUserdata);
@@ -81,12 +90,10 @@ class Home extends React.Component {
   // componentWillUnmount() {
   //     console.log("Component will unmount");
   // }
+
   onChange(field, value) {
-    console.log(this);
-    console.log(field);
-    console.log(value);
     if (Object.keys(value).length > 0) {
-      alert(1)
+      //  alert(1)
       this.setState((prevState, props) => {
         return {
           ...prevState,
@@ -104,6 +111,19 @@ class Home extends React.Component {
     }
   }
   render() {
+    var that = this;
+    var userInformationEnabled = 0;
+    if (that.props.SO_Creation.soUserdata.soDetails instanceof Object) {
+      if (Object.keys(that.props.SO_Creation.soUserdata.soDetails).length > 0) {
+        console.log(that.props.SO_Creation.soUserdata.soDetails.result.username);
+        userInformationEnabled = 1;
+        var userRequiredInformation = {
+          username: that.props.SO_Creation.soUserdata.soDetails.result.username,
+          password: that.props.SO_Creation.soUserdata.soDetails.result.password,
+          instanceUrl: that.props.SO_Creation.soUserdata.soDetails.result.instanceUrl
+        }
+      }
+    }
     return (
     this.props.loader ?
       <div className="container-fluid">
@@ -122,7 +142,8 @@ class Home extends React.Component {
                 </code>
               </div>
               <div className="vertical-split-50">
-                <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty>
+                {/* <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty> */}
+                <h4 className="shine">We are processing your data, please wait..</h4>
               </div>
           </div>
         </div>
@@ -140,9 +161,14 @@ class Home extends React.Component {
                   {this.state.console}
                 </code>
               </div>
-              <div className="vertical-split-50">
-                <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty>
-              </div>
+                { /* <JSONPretty id="json-pretty" json={this.props.SO_Creation.soUserdata}></JSONPretty> */ }
+                {userInformationEnabled > 0 &&
+                 <div className="vertical-split-50">
+                  <p><span>URL :</span> {userRequiredInformation.instanceUrl}</p>
+                  <p><span>Username :</span> {userRequiredInformation.username}</p>
+                  <p><span>Password :</span> {userRequiredInformation.password}</p>
+                </div>
+                }
           </div>
         </div>
       </div>

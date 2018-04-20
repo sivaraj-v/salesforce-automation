@@ -1,0 +1,513 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="LeadRankingSettingsDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>Lead Ranking Custom Settings</description>
+        <property name="name" value="LeadRankingSettingsProcess"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="LeadRankingSetting__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="LeadRankingSetting.sdl"/>
+                <entry key="dataAccess.name" value="LeadRankingSetting.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="LeadAccountMappingSettingsDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description></description>
+        <property name="name" value="LeadAccountMappingSettingsDeploy"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="LeadAccountMapping__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="LeadAccountMapping.sdl"/>
+                <entry key="dataAccess.name" value="LeadAccountMapping.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="LeadMergeRuleConfigSettingsDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description></description>
+        <property name="name" value="LeadMergeRuleConfigSettingsProcess"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="MergeRuleConfig__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="LeadMergeRuleConfig.sdl"/>
+                <entry key="dataAccess.name" value="LeadMergeRuleConfig.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="LegalSettingsDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description></description>
+        <property name="name" value="LegalSettingsProcess"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="LegalSettings__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="LegalSettings.sdl"/>
+                <entry key="dataAccess.name" value="LegalSettings.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="MarketProgramSettingDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description></description>
+        <property name="name" value="MarketProgramSettingProcess"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="MarketProgramLevelSetting__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="MarketProgramSetting.sdl"/>
+                <entry key="dataAccess.name" value="MarketProgramSetting.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="BypassTriggerValidationSettingDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description></description>
+        <property name="name" value="BypassTriggerValidationSettingDeploy"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="BypassTriggersValidation__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="BypassTriggerValidation.sdl"/>
+                <entry key="dataAccess.name" value="BypassTriggerValidation.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="ProposalSystemPropertiesDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description></description>
+        <property name="name" value="ProposalSystemPropertiesProcess"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="Apttus_Proposal__ProposalSystemProperties__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="ProposalSystemProperties.sdl"/>
+                <entry key="dataAccess.name" value="ProposalSystemProperties.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="ConfigSystemPropertiesDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description></description>
+        <property name="name" value="ConfigSystemPropertiesProcess"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="Apttus_Config2__ConfigSystemProperties__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="ConfigSystemProperties.sdl"/>
+                <entry key="dataAccess.name" value="ConfigSystemProperties.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="ConfigCustomClassesDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description></description>
+        <property name="name" value="ConfigCustomClassesProcess"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="Apttus_Config2__ConfigCustomClasses__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="CustomClasses.sdl"/>
+                <entry key="dataAccess.name" value="CustomClasses.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="ConfigLineItemCustomFieldsDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description></description>
+        <property name="name" value="ConfigLineItemCustomFieldsProcess"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="Apttus_Config2__ConfigLineItemCustomFields__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="ConfigLineItemCustomFields.sdl"/>
+                <entry key="dataAccess.name" value="ConfigLineItemCustomFields.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="ConfigLineItemCriteriaFieldsDeploy" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description></description>
+        <property name="name" value="ConfigLineItemCriteriaFieldsProcess"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value=""/>
+                <entry key="sfdc.username" value=""/>
+                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
+                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility -->
+                <entry key="sfdc.password" value=""/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <!-- <entry key="sfdc.externalIdField" value="Oracle_Id__c"/> -->
+                <entry key="sfdc.entity" value="Apttus_Config2__ConfigLineItemCriteriaFields__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="ConfigLineItemCriteriaFields.sdl"/>
+                <entry key="dataAccess.name" value="ConfigLineItemCriteriaFields.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <!-- <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/> -->
+            </map>
+        </property>
+    </bean>
+    <bean id="retrive_Destination__c" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>AccountMaster job gets the Customer record updates from ERP (Oracle financials) and uploads them to salesforce using 'upsert'.</description>
+        <property name="name" value="Destination__c"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value="https://eflangandbox--TheQA.cs85.my.salesforce.com"/>
+                <entry key="sfdc.username" value="sivaraj.v@ef.com.lang.theqa"/>
+                <entry key="sfdc.password" value="5f5c7f0df8bf68b87451334ec5f9c87d30ea934a444d3475a69f6406f56a72ab426467fe5999c157"/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Destination__c"/>
+                <entry key="sfdc.entity" value="Destination__c"/>
+                <entry key="process.operation" value="extract"/>
+                <entry key="dataAccess.name" value="1.0-Destination__c.csv"/>
+                <entry key="dataAccess.type" value="csvWrite" />
+                <entry key="dataAccess.writeBatchSize" value="1" />
+                <entry key="sfdc.extractionRequestSize" value="1" />
+                <entry key="process.enableExtractSuccessOutput" value="true" />
+                <entry key="sfdc.extractionSOQL" value="SELECT APTSExtID__c, Country__c, DestinationCode__c, EndDateOffSet__c, GroupedLTDestinationName__c, IsLT__c, Language__c, StartDateOffSet__c FROM Destination__c" />
+                <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="retrive_Fixed_Fare__c" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>AccountMaster job gets the Customer record updates from ERP (Oracle financials) and uploads them to salesforce using 'upsert'.</description>
+        <property name="name" value="Fixed_Fare__c"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value="https://eflangandbox--TheQA.cs85.my.salesforce.com"/>
+                <entry key="sfdc.username" value="sivaraj.v@ef.com.lang.theqa"/>
+                <entry key="sfdc.password" value="5f5c7f0df8bf68b87451334ec5f9c87d30ea934a444d3475a69f6406f56a72ab426467fe5999c157"/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Fixed_Fare__c"/>
+                <entry key="sfdc.entity" value="Fixed_Fare__c"/>
+                <entry key="process.operation" value="extract"/>
+                <entry key="dataAccess.name" value="1.0-Fixed_Fare__c.csv"/>
+                <entry key="dataAccess.type" value="csvWrite" />
+                <entry key="dataAccess.writeBatchSize" value="1" />
+                <entry key="sfdc.extractionRequestSize" value="1" />
+                <entry key="process.enableExtractSuccessOutput" value="true" />
+                <entry key="sfdc.extractionSOQL" value="SELECT APTSExtID__c, Departure_Point__c, Destination__c, Name, Flight_Season__c, From_Day__c, From_Month__c, From_To__c, Product__c, Program__c, To_Day__c, To_Month__c, Transformed_To_Month__c, Unique_Value__c FROM Fixed_Fare__c" />
+                <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="retrive_Departure_Point__c" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>AccountMaster job gets the Customer record updates from ERP (Oracle financials) and uploads them to salesforce using 'upsert'.</description>
+        <property name="name" value="Departure_Point__c"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value="https://eflangandbox--TheQA.cs85.my.salesforce.com"/>
+                <entry key="sfdc.username" value="sivaraj.v@ef.com.lang.theqa"/>
+                <entry key="sfdc.password" value="5f5c7f0df8bf68b87451334ec5f9c87d30ea934a444d3475a69f6406f56a72ab426467fe5999c157"/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Departure_Point__c"/>
+                <entry key="sfdc.entity" value="Departure_Point__c"/>
+                <entry key="process.operation" value="extract"/>
+                <entry key="dataAccess.name" value="1.0-Departure_Point__c.csv"/>
+                <entry key="dataAccess.type" value="csvWrite" />
+                <entry key="dataAccess.writeBatchSize" value="1" />
+                <entry key="sfdc.extractionRequestSize" value="1" />
+                <entry key="process.enableExtractSuccessOutput" value="true" />
+                <entry key="sfdc.extractionSOQL" value="SELECT Active__c,APTSExtID__c,  Code__c, APTS_Default_Unique_Identifier__c, Market__c, Product__c, Program__c FROM Departure_Point__c" />
+                <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="retrive_Start_Dates__c" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>AccountMaster job gets the Customer record updates from ERP (Oracle financials) and uploads them to salesforce using 'upsert'.</description>
+        <property name="name" value="Start_Dates__c"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value="https://eflangandbox--TheQA.cs85.my.salesforce.com"/>
+                <entry key="sfdc.username" value="sivaraj.v@ef.com.lang.theqa"/>
+                <entry key="sfdc.password" value="5f5c7f0df8bf68b87451334ec5f9c87d30ea934a444d3475a69f6406f56a72ab426467fe5999c157"/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Start_Dates__c"/>
+                <entry key="sfdc.entity" value="Start_Dates__c"/>
+                <entry key="process.operation" value="extract"/>
+                <entry key="dataAccess.name" value="1.0-Start_Dates__c.csv"/>
+                <entry key="dataAccess.type" value="csvWrite" />
+                <entry key="dataAccess.writeBatchSize" value="1" />
+                <entry key="sfdc.extractionRequestSize" value="1" />
+                <entry key="process.enableExtractSuccessOutput" value="true" />
+                <entry key="sfdc.extractionSOQL" value="SELECT APTSExtID__c, APTSBreak1EndDate__c, APTSBreak1NumberofWeeks__c, APTSBreak1StartDate__c, APTSBreak2EndDate__c, APTSBreak2NumberofWeeks__c, APTSBreak2StartDate__c, APTSBreak3EndDate__c, APTSBreak3NumberofWeeks__c, APTSBreak3StartDate__c, Course__c, APTSCourseNumberofWeeks__c, DateofBirthFrom__c, DateofBirthTo__c, Destination__c, APTSEndDate__c, Is_Beginner__c, Is_Preferred__c, Name, Preferred__c, Program__c, StartDate__c, Start_Date_Converted__c, APTSTerm1EndDate__c, APTSTerm1NumberofWeeks__c, APTSTerm1StartDate__c, APTSTerm2EndDate__c, APTSTerm2NumberofWeeks__c, APTSTerm2StartDate__c, APTSTerm3EndDate__c, APTSTerm3NumberofWeeks__c, APTSTerm3StartDate__c, APTSTerm4EndDate__c, APTSTerm4NumberofWeeks__c, APTSTerm4StartDate__c FROM Start_Dates__c" />
+                <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="retrive_Product2" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>AccountMaster job gets the Customer record updates from ERP (Oracle financials) and uploads them to salesforce using 'upsert'.</description>
+        <property name="name" value="Product2"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value="https://eflangandbox--TheQA.cs85.my.salesforce.com"/>
+                <entry key="sfdc.username" value="sivaraj.v@ef.com.lang.theqa"/>
+                <entry key="sfdc.password" value="5f5c7f0df8bf68b87451334ec5f9c87d30ea934a444d3475a69f6406f56a72ab426467fe5999c157"/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Product2"/>
+                <entry key="sfdc.entity" value="Product2"/>
+                <entry key="process.operation" value="extract"/>
+                <entry key="dataAccess.name" value="1.0-Product2.csv"/>
+                <entry key="dataAccess.type" value="csvWrite" />
+                <entry key="dataAccess.writeBatchSize" value="1" />
+                <entry key="sfdc.extractionRequestSize" value="1" />
+                <entry key="process.enableExtractSuccessOutput" value="true" />
+                <entry key="sfdc.extractionSOQL" value="SELECT Apttus_Config2__IconSize__c, APTS_Ext_ID__c, Available_Programs__c, APTS_AY_Course_Type__c, Apttus_Config2__BundleInvoiceLevel__c, Apttus_Config2__ConfigurationType__c, Apts_CoursePricing__c, APTS_Destination_Location__c, Apttus_Config2__DiscontinuedDate__c, Apttus_Config2__EffectiveDate__c, Apttus_Config2__EffectiveStartDate__c, EnableStartDateEndDate__c, Apttus_Config2__ExcludeFromSitemap__c, Apttus_Config2__ExpirationDate__c, Apttus_Config2__HasAttributes__c, Apttus_Config2__HasDefaults__c, Apttus_Config2__HasOptions__c, Apttus_Config2__HasSearchAttributes__c, Apttus_Config2__Icon__c, Apttus_Config2__IconId__c, APTS_Is_Optional__c, Apttus_Config2__LaunchDate__c, Apttus_Config2__Customizable__c, APTS_PriceOverrideAllowed__c, ProductSubtype__c, Apttus_Config2__ProductType__c, QunatityModifiable__c, Apts_TI_Pricing__c, Apttus_Config2__Uom__c, Apttus_Config2__Version__c FROM Product2" />
+                <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="update_Destination__c" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>Lead Ranking Custom Settings</description>
+        <property name="name" value="update_Destination__c"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value="https://eflangandbox--TheQA.cs85.my.salesforce.com"/>
+                <entry key="sfdc.username" value="sivaraj.v@ef.com.lang.theqa"/>
+                <entry key="sfdc.password" value="5f5c7f0df8bf68b87451334ec5f9c87d30ea934a444d3475a69f6406f56a72ab426467fe5999c157"/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.entity" value="Destination__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="1.0-Destination__c.csv"/>
+                <entry key="dataAccess.name" value="1.0-Destination__c.sdl"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="update_Fixed_Fare__c" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>Lead Ranking Custom Settings</description>
+        <property name="name" value="update_Fixed_Fare__c"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value="https://eflangandbox--TheQA.cs85.my.salesforce.com"/>
+                <entry key="sfdc.username" value="sivaraj.v@ef.com.lang.theqa"/>
+                <entry key="sfdc.password" value="5f5c7f0df8bf68b87451334ec5f9c87d30ea934a444d3475a69f6406f56a72ab426467fe5999c157"/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.entity" value="Fixed_Fare__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="1.0-Fixed_Fare__c.csv"/>
+                <entry key="dataAccess.name" value="1.0-Fixed_Fare__c.sdl"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="update_Departure_Point__c" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>Lead Ranking Custom Settings</description>
+        <property name="name" value="update_Departure_Point__c"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value="https://eflangandbox--TheQA.cs85.my.salesforce.com"/>
+                <entry key="sfdc.username" value="sivaraj.v@ef.com.lang.theqa"/>
+                <entry key="sfdc.password" value="5f5c7f0df8bf68b87451334ec5f9c87d30ea934a444d3475a69f6406f56a72ab426467fe5999c157"/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.entity" value="Departure_Point__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="1.0-Departure_Point__c.csv"/>
+                <entry key="dataAccess.name" value="1.0-Departure_Point__c.sdl"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="update_Start_Dates__c" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>Lead Ranking Custom Settings</description>
+        <property name="name" value="update_Start_Dates__c"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value="https://eflangandbox--TheQA.cs85.my.salesforce.com"/>
+                <entry key="sfdc.username" value="sivaraj.v@ef.com.lang.theqa"/>
+                <entry key="sfdc.password" value="5f5c7f0df8bf68b87451334ec5f9c87d30ea934a444d3475a69f6406f56a72ab426467fe5999c157"/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.entity" value="Start_Dates__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="1.0-Start_Dates__c.csv"/>
+                <entry key="dataAccess.name" value="1.0-Start_Dates__c.sdl"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="update_Product2" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+        <description>Lead Ranking Custom Settings</description>
+        <property name="name" value="update_Product2"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="log.txt"/>
+                <entry key="sfdc.endpoint" value="https://eflangandbox--TheQA.cs85.my.salesforce.com"/>
+                <entry key="sfdc.username" value="sivaraj.v@ef.com.lang.theqa"/>
+                <entry key="sfdc.password" value="5f5c7f0df8bf68b87451334ec5f9c87d30ea934a444d3475a69f6406f56a72ab426467fe5999c157"/>
+                <entry key="process.encryptionKeyFile" value="Key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.entity" value="Product2"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="1.0-Product2.csv"/>
+                <entry key="dataAccess.name" value="1.0-Product2.sdl"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+            </map>
+        </property>
+    </bean>
+</beans>

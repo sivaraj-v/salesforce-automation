@@ -17,7 +17,6 @@ const ora = require('ora');
 const spinner = ora('Loading Data');
 const promisify = require('node-promisify');
 var moment = require('moment');
-var socket_message = "🤝 Connection Success";
 io.on('connection', socket => {
   const obj_temp = {
     projectName: '',
@@ -27,6 +26,8 @@ io.on('connection', socket => {
     scratch_org_id: '',
     scratch_org_username: '',
   };
+  global.socket_message = "🤝 Connection Success";
+  global.socket_SO_userdata = 0;
   // Configuration
   const config = {
     login_URL_default: 'https://login.salesforce.com/',
@@ -63,29 +64,113 @@ io.on('connection', socket => {
     // Pass to next layer of middleware
     next();
   });
-
-
   app.post('/SO', function(req, res) {
-    console.log('receiving data...');
-    console.log('body is ', req.body);
+    // console.log('receiving data...');
+    // console.log('body is ', req.body);
     obj_temp.scratch_org_alias = req.body.alias;
     obj_temp.projectName = req.body.projectName;
+    function processInstallation_emit(i) {
+      if (obj_temp.count_LifeCycle_install_pkg > i) {
+        var val_frm_pkg_json = {
+          name: obj_temp.packages_data[i].package_name,
+          ver_id: obj_temp.packages_data[i].package_version,
+          key: obj_temp.packages_data[i].package_key,
+        };
+        console.log(val_frm_pkg_json);
+        Promise.coroutine(function*() {
+          var command = '';
+          if (val_frm_pkg_json.key) {
+            command = 'sfdx force:package:install -i ' + val_frm_pkg_json.ver_id + ' -k ' + val_frm_pkg_json.key + ' -u ' + obj_temp.scratch_org_alias;
+          } else {
+            command = 'sfdx force:package:install -i ' + val_frm_pkg_json.ver_id + ' -u ' + obj_temp.scratch_org_alias;
+          }
+          var response = yield cmd.run(command);
+          spinner.start('Loading..');
+          socket_message = "Loading packages, please wait..!";
+          if (response.success) {
+            console.log(response);
+            var packageStatusCheckPattern = /sfdx\sforce:package:install:get\s-i\s[A-Za-z\d]{18}\s-u\s[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
+            var packageStatusCheckPatternResolvedArray = packageStatusCheckPattern.exec(response.message);
+            if (packageStatusCheckPatternResolvedArray && packageStatusCheckPatternResolvedArray.length > 0) {
+              var installationStatusCheckCommand = packageStatusCheckPatternResolvedArray[0];
+            }
+            if (!installationStatusCheckCommand) {
+              return;
+            }
+            var checkInstallationStatus = setInterval(function() {
+              //console.log('installation status->>');
+              spinner.stop();
+              spinner.start('Package install requested..');
+              socket_message = "Package install requested..";
+              console.log(installationStatusCheckCommand);
+              Promise.coroutine(function*() {
+                spinner.stop();
+                spinner.start('Loading...');
+                socket_message = "Loading....";
+                var response = yield cmd.run(installationStatusCheckCommand);
+                if (response.success) {
+                  //clearInterval(checkInstallationStatus)
+                  var installationSuccessPattern = /Successfully\sinstalled\spackage\s\[/g;
+                  var installationSuccessResolvedArray = installationSuccessPattern.exec(response.message);
+                  if (installationSuccessResolvedArray && installationSuccessResolvedArray.length > 0) {
+                    spinner.stop();
+                    spinner.succeed(success(installationSuccessResolvedArray[0]));
+                    for_increment_install(i);
+                    clearInterval(checkInstallationStatus);
+                  }
+                  spinner.stop();
+                  spinner.start('Installation process in queue...');
+                  socket_message = "Installation process in queue...";
+                //console.log(response);
+                } else {
+                  console.log(error('Package queue failed, Please contact administrator'));
+                  socket_message = "Package queue failed, Please contact administrator";
+                  console.log(response);
+                }
+              })();
+            }, 120000);
+          } else {
+            console.log(error('Package installation got failed'));
+            socket_message = "Package installation got failed";
+            spinner.stop();
+          }
+        })();
+      } else {
+        console.log(success('Package installation process completed'));
+        socket_message = "Package installation process completed";
+        spinner.stop();
+        process.exit();
+      }
+    }
+    function for_increment_install(i) {
+      processInstallation_emit(i + 1);
+    }
+    function processInstallation_init(value) {
+      obj_temp.packages_data = JSON.parse(value).Packages;
+      obj_temp.count_LifeCycle_install_pkg = JSON.parse(value).Packages.length;
+      if (obj_temp.count_LifeCycle_install_pkg > 0) processInstallation_emit(0);
+      else socket_message = "No packages to install"; console.log('No packages to install');
+    }
     function responseEmit(params) {
-      socket_message = "😀 Copy your SO Details 🌟"
-      socket.emit('so_creation', moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + " => " + socket_message);
+      socket_message = "Package installation yet to begin..";
+      socket_SO_userdata = JSON.parse(params);
+      socket.emit('so_creation', socket_message);
+      socket.emit('so_creation_org_details', socket_SO_userdata);
       res.send(req.body);
+      fs.readFile('config/configdata.json', 'utf8', function readFileCallback(err, data) {
+        processInstallation_init(data);
+      });
     }
     function displayScratchOrg(value) {
       socket_message = "🆕 Displaying SO Details 🌟"
       spinner.start('Loading..');
       Promise.coroutine(function*() {
         //const response = yield cmd.run('sfdx force:org:display -u ' + obj_temp.scratch_org_alias);
-        const response = yield cmd.run('npm -v');
+        const response = yield cmd.run('sfdx force:org:display -u SivaSO3 --json');
         if (response.success) {
-
           prompt.start();
-          socket_message = "😀 Copy your SO Details 🌟"
-          responseEmit()
+          socket_message = "😀 Copy your SO Details 🌟";
+          responseEmit(response.message)
           spinner.stop();
         } else {
           socket_message = "👺 Someting went wrong contact admin 👀";
@@ -195,7 +280,8 @@ io.on('connection', socket => {
           spinner.stop();
           console.log(success('User LoggedIn successfully'));
           console.log(obj_temp.projectName);
-          create_Project(obj_temp.projectName);
+         // create_Project(obj_temp.projectName);
+         displayScratchOrg(obj_temp.projectName);
           socket_message = "User LoggedIn successfully 🤙";
 
         } else {
@@ -211,7 +297,9 @@ io.on('connection', socket => {
     cmd_Exec(_cmd_login, 'Waiting for loggin into salesforce..!');
   });
   setInterval(function() {
-    socket.emit('so_creation', moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + " => " + socket_message);
+    //socket.emit('so_creation', moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + " => " + socket_message);
+    socket.emit('so_creation', socket_message);
+    socket.emit('so_creation_org_details', socket_SO_userdata);
   }, 1000);
 })
 console.log('Server started! At http://localhost:' + port);

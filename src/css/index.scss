@@ -1,3 +1,5 @@
+$duration: 5s;
+$text-color: rgba(255, 255, 255, 0.3);
 .height100 {
     height: 100vh;
     overflow: hidden;
@@ -123,6 +125,8 @@
 
 .vertical-split-50 {
     height: 50vh;
+    word-wrap: break-word;
+    font-size: 14px;
 }
 
 .vertical-split-50 code {
@@ -156,11 +160,49 @@
     -ms-transform: translate(-50%, -50%);
 }
 
+.shine {
+    font-size: 3em;
+    margin: 0 auto;
+    margin-bottom: 1em;
+}
+
+.shine {
+    background: #222 -webkit-gradient(linear, left top, right top, from(#222), to(#222), color-stop(0.5, #fff)) 0 0 no-repeat;
+    -webkit-background-size: 150px;
+    color: $text-color;
+    -webkit-background-clip: text;
+    -webkit-animation-name: shine;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-iteration-count: infinite;
+    text-shadow: 0 0px 0px rgba(255, 255, 255, 0.5);
+}
+
+.vertical-split-50 span {
+    color: #00ff26;
+    font-weight: 300;
+}
+
 @keyframes lds-roller {
     0% {
         transform: rotate(0deg);
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes shine {
+    0%,
+    10% {
+        background-position: -100px;
+    }
+    20% {
+        background-position: top left;
+    }
+    90% {
+        background-position: top right;
+    }
+    100% {
+        background-position: 100px;
     }
 }

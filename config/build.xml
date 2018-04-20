@@ -1,0 +1,31 @@
+<project name="Salesforce Continues intergration" basedir="." xmlns:sf="antlib:com.salesforce">
+    <property file="build.properties"/>
+    <property environment="env"/>
+
+    <target name="fetchChanges">
+        <taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce" classpath="C:\Work\server\apache-ant-1.10.2-bin\lib\ant-salesforce.jar"/>
+        <sf:retrieve username="${sf1.username}"
+                     password="${sf1.password}"
+                     serverurl="${sf1.serverurl}"
+                     retrieveTarget="codepkg"
+                     unpackaged="codepkg/package.xml"/>
+    </target>
+	<target name="undeployCode">
+        <taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce" classpath="C:\Work\server\apache-ant-1.10.2-bin\lib\ant-salesforce.jar"/>
+        <sf:deploy username="${sf2.username}"
+                   password="${sf2.password}"
+                   serverurl="${sf2.serverurl}"
+                   deployRoot="removecodepkg"
+                   rollbackonerror="true"/>
+    </target>
+    <target name="deploy">
+        <taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce" classpath="C:\Work\server\apache-ant-1.10.2-bin\lib\ant-salesforce.jar"/>
+        <sf:deploy username="${sf2.username}"
+                   password="${sf2.password}"
+                   serverurl="${sf2.serverurl}"
+                   deployRoot="codepkg"
+                   rollbackonerror="true"
+                   logType="Detail" >
+        </sf:deploy>
+    </target>
+</project>

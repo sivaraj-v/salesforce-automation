@@ -157,7 +157,7 @@ class Home extends React.Component {
       <Main loader={false} loaderState={this.loaderState.bind(this)} onChange={this.onChange.bind(this)} />
       }
             {userInformationEnabled > 0 &&
-            <div>
+      <div>
       <h4 className="shine">Installing packages is under process...!</h4>
       <img src={sf_gif} alt="boohoo" className="img-responsive img-center"/>
       </div>

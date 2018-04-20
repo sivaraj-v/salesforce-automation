@@ -28,6 +28,7 @@ io.on('connection', socket => {
   };
   global.socket_message = "🤝 Connection Success";
   global.socket_SO_userdata = 0;
+  global.scratch_org_alias = "";
   // Configuration
   const config = {
     login_URL_default: 'https://login.salesforce.com/',
@@ -67,7 +68,7 @@ io.on('connection', socket => {
   app.post('/SO', function(req, res) {
     // console.log('receiving data...');
     // console.log('body is ', req.body);
-    obj_temp.scratch_org_alias = req.body.alias;
+    scratch_org_alias = req.body.alias;
     obj_temp.projectName = req.body.projectName;
     function processInstallation_emit(i) {
       if (obj_temp.count_LifeCycle_install_pkg > i) {
@@ -80,13 +81,13 @@ io.on('connection', socket => {
         Promise.coroutine(function*() {
           var command = '';
           if (val_frm_pkg_json.key) {
-            command = 'sfdx force:package:install -i ' + val_frm_pkg_json.ver_id + ' -k ' + val_frm_pkg_json.key + ' -u ' + obj_temp.scratch_org_alias;
+            command = 'sfdx force:package:install -i ' + val_frm_pkg_json.ver_id + ' -k ' + val_frm_pkg_json.key + ' -u ' + scratch_org_alias;
           } else {
-            command = 'sfdx force:package:install -i ' + val_frm_pkg_json.ver_id + ' -u ' + obj_temp.scratch_org_alias;
+            command = 'sfdx force:package:install -i ' + val_frm_pkg_json.ver_id + ' -u ' + scratch_org_alias;
           }
           var response = yield cmd.run(command);
           spinner.start('Loading..');
-          socket_message = "Loading packages, please wait..!";
+          socket_message = "PackageInstallRequest is currently InProgress , please wait..!";
           if (response.success) {
             console.log(response);
             var packageStatusCheckPattern = /sfdx\sforce:package:install:get\s-i\s[A-Za-z\d]{18}\s-u\s[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
@@ -101,12 +102,12 @@ io.on('connection', socket => {
               //console.log('installation status->>');
               spinner.stop();
               spinner.start('Package install requested..');
-              socket_message = "Package install requested..";
+              socket_message = "Installing package number" + i;
               console.log(installationStatusCheckCommand);
               Promise.coroutine(function*() {
                 spinner.stop();
                 spinner.start('Loading...');
-                socket_message = "Loading....";
+                socket_message = "Package installation in queue....";
                 var response = yield cmd.run(installationStatusCheckCommand);
                 if (response.success) {
                   //clearInterval(checkInstallationStatus)
@@ -115,6 +116,7 @@ io.on('connection', socket => {
                   if (installationSuccessResolvedArray && installationSuccessResolvedArray.length > 0) {
                     spinner.stop();
                     spinner.succeed(success(installationSuccessResolvedArray[0]));
+                    socket_message = installationSuccessResolvedArray[0];
                     for_increment_install(i);
                     clearInterval(checkInstallationStatus);
                   }
@@ -138,8 +140,12 @@ io.on('connection', socket => {
       } else {
         console.log(success('Package installation process completed'));
         socket_message = "Package installation process completed";
+        socket.emit('so_creation', socket_message);
+        setInterval(function() {
+          socket.emit('so_creation', socket_message);
+        }, 1000);
         spinner.stop();
-        process.exit();
+       // process.exit();
       }
     }
     function for_increment_install(i) {
@@ -165,10 +171,9 @@ io.on('connection', socket => {
       socket_message = "🆕 Displaying SO Details 🌟"
       spinner.start('Loading..');
       Promise.coroutine(function*() {
-        //const response = yield cmd.run('sfdx force:org:display -u ' + obj_temp.scratch_org_alias);
+        //const response = yield cmd.run('sfdx force:org:display -u ' + scratch_org_alias);
         const response = yield cmd.run('sfdx force:org:display -u SivaSO3 --json');
         if (response.success) {
-          prompt.start();
           socket_message = "😀 Copy your SO Details 🌟";
           responseEmit(response.message)
           spinner.stop();
@@ -188,13 +193,12 @@ io.on('connection', socket => {
         socket_message = "🏋️‍ Please wait... Generating password 📢";
       }, 1000);
       Promise.coroutine(function*() {
-        //const response = yield cmd.run('sfdx force:user:password:generate -u ' + obj_temp.scratch_org_alias);
+        //const response = yield cmd.run('sfdx force:user:password:generate -u ' + scratch_org_alias);
         const response = yield cmd.run('npm -v');
         if (response.success) {
           spinner.stop();
           spinner.succeed('Password generated successfully');
           socket_message = "Password generated successfully ✔️";
-          prompt.start();
           displayScratchOrg(value);
         } else {
           socket_message = "👺 Someting went wrong contact admin 👀";
@@ -204,20 +208,20 @@ io.on('connection', socket => {
       })();
     }
     function create_scratch_org(value, process) {
-      socket_message = "👨🏻‍💻 Creating SO for " + obj_temp.scratch_org_alias;
+      socket_message = "👨🏻‍💻 Creating SO for " + scratch_org_alias;
       spinner.start('Loading..');
       setTimeout(() => {
         spinner.color = 'yellow';
         spinner.text = 'Creating scratch org...';
-        socket_message = "Please wait... 🕑 creating SO for " + obj_temp.scratch_org_alias;
+        socket_message = "Please wait... 🕑 creating SO for " + scratch_org_alias;
       }, 1000);
-      obj_temp.scratch_org_alias = value;
+      scratch_org_alias = value;
       Promise.coroutine(function*() {
         //const response = yield cmd.run('sfdx force:org:create -f ' + obj_temp.projectName + '/config/project-scratch-def.json -a ' + value + ' -d 30');
         const response = yield cmd.run('npm -v');
         if (response.success) {
           spinner.succeed('Org created successfully');
-          socket_message = "SO successfully ⛳️ created for " + obj_temp.scratch_org_alias;
+          socket_message = "SO successfully ⛳️ created for " + scratch_org_alias;
           // const orgPattern = /00D[A-Za-z\d]{15}/;
           // const emailPattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
           // const orgPatternResolvedArray = orgPattern.exec(response.message);
@@ -229,7 +233,7 @@ io.on('connection', socket => {
           //   obj_temp.scratch_org_username = emailPatternResolvedArray[0];
           // }
           // if (!obj_temp.scratch_org_id || !obj_temp.scratch_org_username) return;
-          generatePassword(obj_temp.scratch_org_alias);
+          generatePassword(scratch_org_alias);
         } else {
           socket_message = "👺 Someting went wrong contact admin 👀";
           console.log(error('Invalid Comment, Please contact administrator'));
@@ -255,7 +259,7 @@ io.on('connection', socket => {
                 fs.writeFile('./' + value + '/config/project-scratch-def.json', data, 'utf8', function readFileCallback(err, data) {
                   spinner.succeed('Project created successfully');
                   socket_message = " 📩 Project Successfully Created ⛳️ ";
-                  create_scratch_org(obj_temp.scratch_org_alias);
+                  create_scratch_org(scratch_org_alias);
                 });
               });
             }

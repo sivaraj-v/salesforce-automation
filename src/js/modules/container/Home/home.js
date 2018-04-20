@@ -8,6 +8,7 @@ import { SET_USERDATA } from "../../action/mathAction";
 import { LOADER } from "../../action/LoaderAction";
 import JSON from '../../JSON/index';
 import JSONPretty from 'react-json-pretty';
+import sf_gif from "../../../../img/tb_astro.png";
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -142,7 +143,7 @@ class Home extends React.Component {
                 </code>
               </div>
               <div className="vertical-split-50">
-                {/* <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty> */}
+                { /* <JSONPretty id="json-pretty" json={this.props.SO_Creation}></JSONPretty> */ }
                 <h4 className="shine">We are processing your data, please wait..</h4>
               </div>
           </div>
@@ -151,9 +152,17 @@ class Home extends React.Component {
       :
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-8 gradient-1 height100">
-              <Main loader={false} loaderState={this.loaderState.bind(this)} onChange={this.onChange.bind(this)} />
-          </div>
+            <div className="col-lg-8 gradient-1 height100">
+            {userInformationEnabled <= 0 &&
+      <Main loader={false} loaderState={this.loaderState.bind(this)} onChange={this.onChange.bind(this)} />
+      }
+            {userInformationEnabled > 0 &&
+            <div>
+      <h4 className="shine">Installing packages is under process...!</h4>
+      <img src={sf_gif} alt="boohoo" className="img-responsive img-center"/>
+      </div>
+      }
+            </div>
           <div className="col-lg-4 gradient-2 height100">
               <div className="vertical-split-50">
                 <h1>Console</h1>
@@ -161,14 +170,13 @@ class Home extends React.Component {
                   {this.state.console}
                 </code>
               </div>
-                { /* <JSONPretty id="json-pretty" json={this.props.SO_Creation.soUserdata}></JSONPretty> */ }
-                {userInformationEnabled > 0 &&
-                 <div className="vertical-split-50">
-                  <p><span>URL :</span> {userRequiredInformation.instanceUrl}</p>
-                  <p><span>Username :</span> {userRequiredInformation.username}</p>
-                  <p><span>Password :</span> {userRequiredInformation.password}</p>
-                </div>
-                }
+              {userInformationEnabled > 0 &&
+      <div className="vertical-split-50">
+                            <p><span>URL :</span> {userRequiredInformation.instanceUrl}</p>
+                            <p><span>Username :</span> {userRequiredInformation.username}</p>
+                            <p><span>Password :</span> {userRequiredInformation.password}</p>
+                          </div>
+      }
           </div>
         </div>
       </div>

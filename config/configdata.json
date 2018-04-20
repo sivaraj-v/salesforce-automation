@@ -1,125 +1,63 @@
 {
-   "loginDetails" : {
-      "login_URL" : "https://login.salesforce.com",
-      "Alias" : "Prod",
-      "UserName" : ""
-   },
-   	"customDetails":{
-		"localProjectPath": "C:\\Work\\salesforce\\clean-script-mine\\THEQA",
-		"csvPath": "\\data\\custom settings\\"
-	},
-   "ScratchOrgs" : [
-      {
-         "OrgAlias" : "EmmaSO",
-         "UserName" : "test-qxp9ttds4ktu@example.com",
-         "InstanceURL" : "https://java-velocity-6284.cs84.my.salesforce.com",
-         "EncryptedPassword" : "0c4885a3f587be24b7042b369295f294299f3274c82c08fa89850b5127038432ac91b45ccc2938ab",
-         "key" : "\\config\\Key.txt",
-         "debug_Log" : "\\data\\logs\\"
-      }
-   ],
-   "BeanIDs" : [
-      "LeadRankingSettingsDeploy",
-      "LeadAccountMappingSettingsDeploy",
-      "LeadMergeRuleConfigSettingsDeploy",
-      "LegalSettingsDeploy",
-      "MarketProgramSettingDeploy",
-      "BypassTriggerValidationSettingDeploy",
-      "ProposalSystemPropertiesDeploy",
-      "ConfigSystemPropertiesDeploy",
-      "ConfigCustomClassesDeploy",
-      "ConfigLineItemCustomFieldsDeploy",
-      "ConfigLineItemCriteriaFieldsDeploy"
-   ],
-   "ApttusRetrieveDataBeanIDs" : [
-      "retrive_Destination__c",
-      "retrive_Fixed_Fare__c",
-      "retrive_Departure_Point__c",
-      "retrive_Start_Dates__c",
-      "retrive_Product2"
-   ],
-   "ApttusInsertDataBeanIDs" : [
-      "update_Destination__c",
-      "update_Fixed_Fare__c",
-      "update_Departure_Point__c",
-      "update_Start_Dates__c",
-      "update_Product2"
-   ],
-   "Packages" : [
-      {
-         "package_name" : "Apttus Configuration & Pricing",
-         "package_version" : "04tA0000000KOb3IAG",
-         "package_key" : "installapttus"
-      },
-      {
-         "package_name" : "Apttus Contract Management",
-         "package_version" : "04t500000006wBLAAY",
-         "package_key" : "installapttus"
-      },
-      {
-         "package_name" : "Apttus Proposal Management",
-         "package_version" : "04t70000000xZq1AAE",
-         "package_key" : "installapttus"
-      },
-      {
-         "package_name" : "Apttus Quote/Proposal-Configuration Integration",
-         "package_version" : "04t50000000RbqmAAC",
-         "package_key" : "installapttus"
-      },
-      {
-         "package_name" : "Apttus CPQ Api",
-         "package_version" : "04t0L000000EYMlQAO",
-         "package_key" : "installapttus"
-      },
-      {
-         "package_name" : "Apttus Approvals Management",
-         "package_version" : "04t7000000080fFAAQ",
-         "package_key" : "installapttus"
-      },
-      {
-         "package_name" : "Apttus Promotion Management",
-         "package_version" : "04t61000000QFdKAAW",
-         "package_key" : "installapttus"
-      },
-      {
-         "package_name" : "Apttus Quote/Proposal-Asset Integration",
-         "package_version" : "04tE0000000V9XSIA0",
-         "package_key" : "installapttus"
-      },
-      {
-         "package_name" : "Apttus Quote/Proposal Approvals Management",
-         "package_version" : "04tU00000001HhIIAU",
-         "package_key" : "installapttus"
-      },
-      {
-         "package_name" : "Apttus X-Author™ For Excel",
-         "package_version" : "04ti0000000cS4qAAE",
-         "package_key" : "installxapps1"
-      },
-      {
-         "package_name" : "Apttus X-Author™ Designer For Excel",
-         "package_version" : "04ti0000000ThZiAAK",
-         "package_key" : "installxapps1"
-      },
-      {
-         "package_name" : "Conga Composer",
-         "package_version" : "04tf2000000gbwGAAQ",
-         "package_key" : ""
-      },
-      {
-         "package_name" : "Conga Conductor",
-         "package_version" : "04t80000000cj1nAAA",
-         "package_key" : ""
-      },
-      {
-         "package_name" : "ActionGrid",
-         "package_version" : "04t1J000000Xkz2QAC",
-         "package_key" : ""
-      },
-      {
-         "package_name" : "Duplicate Check for Salesforce1",
-         "package_version" : "04t1r000000Q1msAAC",
-         "package_key" : ""
-      }
-   ]
+    "loginDetails": {
+        "login_URL": "https://login.salesforce.com",
+        "Alias": "Prod",
+        "UserName": ""
+    },
+    "customDetails": {
+        "localProjectPath": "C:\\Work\\salesforce\\clean-script-mine\\THEQA",
+        "csvPath": "\\data\\custom settings\\"
+    },
+    "ScratchOrgs": [{
+        "OrgAlias": "EmmaSO",
+        "UserName": "test-qxp9ttds4ktu@example.com",
+        "InstanceURL": "https://java-velocity-6284.cs84.my.salesforce.com",
+        "EncryptedPassword": "0c4885a3f587be24b7042b369295f294299f3274c82c08fa89850b5127038432ac91b45ccc2938ab",
+        "key": "\\config\\Key.txt",
+        "debug_Log": "\\data\\logs\\"
+    }],
+    "BeanIDs": [
+        "LeadRankingSettingsDeploy",
+        "LeadAccountMappingSettingsDeploy",
+        "LeadMergeRuleConfigSettingsDeploy",
+        "LegalSettingsDeploy",
+        "MarketProgramSettingDeploy",
+        "BypassTriggerValidationSettingDeploy",
+        "ProposalSystemPropertiesDeploy",
+        "ConfigSystemPropertiesDeploy",
+        "ConfigCustomClassesDeploy",
+        "ConfigLineItemCustomFieldsDeploy",
+        "ConfigLineItemCriteriaFieldsDeploy"
+    ],
+    "ApttusRetrieveDataBeanIDs": [
+        "retrive_Destination__c",
+        "retrive_Fixed_Fare__c",
+        "retrive_Departure_Point__c",
+        "retrive_Start_Dates__c",
+        "retrive_Product2"
+    ],
+    "ApttusInsertDataBeanIDs": [
+        "update_Destination__c",
+        "update_Fixed_Fare__c",
+        "update_Departure_Point__c",
+        "update_Start_Dates__c",
+        "update_Product2"
+    ],
+    "Packages": [{
+        "package_name": "Conga Composer",
+        "package_version": "04tf2000000gbwGAAQ",
+        "package_key": ""
+    }, {
+        "package_name": "Conga Conductor",
+        "package_version": "04t80000000cj1nAAA",
+        "package_key": ""
+    }, {
+        "package_name": "ActionGrid",
+        "package_version": "04t1J000000OUihQAG",
+        "package_key": ""
+    }, {
+        "package_name": "Duplicate Check for Salesforce1",
+        "package_version": "04t1r000000XLCgAAO",
+        "package_key": ""
+    }]
 }

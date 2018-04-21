@@ -208,7 +208,7 @@ io.on('connection', socket => {
         }
       })()
     }
-    const _cmd_login = 'npm -v';
+    var _cmd_login = 'sfdx force:auth:web:login -r ' + result.loginURL + ' -d -a ' + result.alias;
     console.log("value:" + _cmd_login);cmd_Exec(_cmd_login, 'Waiting for loggin into salesforce..!')
   });setInterval(function() {
     socket.emit('so_creation', socket_message);socket.emit('so_creation_org_details', socket_SO_userdata)

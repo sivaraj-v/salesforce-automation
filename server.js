@@ -81,7 +81,7 @@ io.on('connection', socket => {
           }
           var response = yield cmd.run(command);
           spinner.start('Loading..');
-          socket_message = "PackageInstallRequest is currently InProgress , please wait..!";
+          socket_message = i+" PackageInstallRequest is currently InProgress , please wait..!";
           if (response.success) {
             console.log(response);
             var packageStatusCheckPattern = /sfdx\sforce:package:install:get\s-i\s[A-Za-z\d]{18}\s-u\s[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
@@ -100,7 +100,7 @@ io.on('connection', socket => {
               Promise.coroutine(function*() {
                 spinner.stop();
                 spinner.start('Loading...');
-                socket_message = "Package installation in queue....";
+                socket_message = i+" Package installation in queue....";
                 var response = yield cmd.run(installationStatusCheckCommand);
                 if (response.success) {
                   var installationSuccessPattern = /Successfully\sinstalled\spackage\s\[/g;
@@ -114,7 +114,7 @@ io.on('connection', socket => {
                   }
                   spinner.stop();
                   spinner.start('Installation process in queue...');
-                  socket_message = "Installation process in queue..."
+                  socket_message = i+" Installation process in queue..."
                 } else {
                   console.log(error('Package queue failed, Please contact administrator'));
                   socket_message = "Package queue failed, Please contact administrator";

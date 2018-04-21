@@ -116,7 +116,6 @@ class Home extends React.Component {
     var userInformationEnabled = 0;
     if (that.props.SO_Creation.soUserdata.soDetails instanceof Object) {
       if (Object.keys(that.props.SO_Creation.soUserdata.soDetails).length > 0) {
-        console.log(that.props.SO_Creation.soUserdata.soDetails.result.username);
         userInformationEnabled = 1;
         var userRequiredInformation = {
           username: that.props.SO_Creation.soUserdata.soDetails.result.username,

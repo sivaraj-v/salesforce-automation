@@ -44,6 +44,18 @@
         "update_Product2"
     ],
     "Packages": [{
+        "package_name": "Salesforce Connected Apps",
+        "package_version": "04t30000001DUvrAAG",
+        "package_key": ""
+    }, {
+        "package_name": "Salesforce and Chatter Apps",
+        "package_version": "04t3A000001MFANQA4",
+        "package_key": ""
+    }, {
+        "package_name": "MarketingCloudConnectedApp",
+        "package_version": "04t61000000gWo1AAE",
+        "package_key": ""
+    }, {
         "package_name": "Conga Composer",
         "package_version": "04tf2000000gbwGAAQ",
         "package_key": ""
